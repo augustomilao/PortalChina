@@ -67,16 +67,19 @@ include 'components/header.php';
         </div>
 
 
-        <form action="">
+        <form action="../controllers/pedidoController.php" method="POST">
             <div class="inside grid2">
                 <div class="centro">
+                    <br><br>
                     <div>
                         <img id="img" src="../assets/placeholder.jpg" height="297" width="210">
                     </div>
                     <br>
-                    <input required type="file" id="input" name="imagem" >
+                    <input required type="file" id="input" name="imagem[]">
                 </div>
                 <div class="">
+                    <label class="negrito" for="fabrica">Fabricator</label>
+                    <input required class="form-control" type="text" name="fabrica">
                     <label class="negrito" for="referencia">Reference</label>
                     <input required class="form-control" type="text" name="referencia">
                     <label class="negrito" for="marca">Brand</label>
