@@ -6,7 +6,7 @@
     <style>
         .header {
             height: 3em;
-            background-color: #D44739;
+            background-color: #491F68;
             display: grid;
             grid-template-columns: 20% 60% 20%;
         }
@@ -28,6 +28,7 @@
         }
         .text{
             margin-top: 0.6em;
+            color: white;
         }
     </style>
 
@@ -53,14 +54,6 @@
             </div>
         </div>
     </header>
-
-    <div>
-
-    </div>
-
-    <footer>
-
-    </footer>
 
 
 </body>
