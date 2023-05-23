@@ -1,6 +1,22 @@
 <?php
 
+$hoje = date('Y-m-d');
+$timestamp = strtotime('+7 days');
+$prazo = date('Y-m-d', $timestamp);
+
+
+
 include 'components/header.php';
+include '../models/fabrica.php';
+include '../models/pedidos.php';
+
+$pedido = "AM-" . buscaID($conn);
+
+
+$abr = mostraFabricasPorEmpresa($conn, 'ABR');
+$up = mostraFabricasPorEmpresa($conn, 'UP');
+$luminus = mostraFabricasPorEmpresa($conn, 'LUMINUS');
+
 
 ?>
 <!DOCTYPE html>
@@ -79,9 +95,29 @@ include 'components/header.php';
                 </div>
                 <div class="">
                     <label class="negrito" for="fabrica">Fabricator</label>
-                    <input required class="form-control" type="text" name="fabrica">
+                    <select class="form-control" name="fabrica" id="fabrica" required>
+                        <option value="" selected>Choose one</option>
+                        <optgroup label="ABR E UP">
+                            <?php
+                            foreach ($abr as $a) {
+                                echo '<option value="' . $a["id"] . '">' . $a["nome"] . '</option>';
+                            }
+                            ?>
+                        <optgroup label="UP">
+                            <?php
+                            foreach ($up as $u) {
+                                echo '<option value="' . $u["id"] . '">' . $u["nome"] . '</option>';
+                            }
+                            ?>
+                        <optgroup label="LUMINUS">
+                            <?php
+                            foreach ($luminus as $l) {
+                                echo '<option value="' . $l["id"] . '">' . $l["nome"] . '</option>';
+                            }
+                            ?>
+                    </select>
                     <label class="negrito" for="referencia">Reference</label>
-                    <input required class="form-control" type="text" name="referencia">
+                    <input required class="form-control" type="text" name="referencia" value="<?= $pedido ?>" readonly>
                     <label class="negrito" for="marca">Brand</label>
                     <input required class="form-control" type="text" name="marca">
                     <label class="negrito" for="linkDownload">Download Link</label>
@@ -89,15 +125,15 @@ include 'components/header.php';
                     <div style="display: grid;grid-template-columns: auto auto; gap:10px">
                         <div>
                             <label class="negrito" for="dataEnvio">Upload Date</label>
-                            <input required class="form-control" type="text" name="dataEnvio">
+                            <input required class="form-control" type="text" name="dataEnvio" value="<?= $hoje ?>" readonly>
                         </div>
                         <div>
-                            <label class="negrito" for="dataDownload">Download Date</label>
-                            <input required class="form-control" type="text" name="dataDownload">
+                            <label class="negrito" for="dataDownload">Limit Download Date</label>
+                            <input required class="form-control" type="text" name="dataDownload" value="<?= $prazo ?>" readonly>
                         </div>
                     </div>
                     <label class="negrito" for="deadlineAmostra">Sample Deadline</label>
-                    <input required class="form-control" type="text" name="deadlineAmostra">
+                    <input required class="form-control" type="date" name="deadlineAmostra">
                 </div>
             </div>
             <hr style="border-top: 3px solid #F8B32D;">

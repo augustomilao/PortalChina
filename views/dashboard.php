@@ -1,3 +1,11 @@
+<?php
+
+include '../models/pedidos.php';
+
+$pedidos = buscaTodosPedidos($conn);
+
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -19,13 +27,36 @@
             width: 98%;
             margin: auto;
         }
-        .inicio{
+
+        .inicio {
             background-color: #F8B32D;
             border-radius: 6px 6px 0 0;
         }
-        .inicio h4{
-            margin:10px 1em;
+
+        .inicio h4 {
+            margin: 10px 1em;
         }
+        .grid5{
+            display: grid;
+            grid-template-columns: 222px 222px 222px 222px 222px 222px;
+        }
+        .campo{
+            text-align: center;
+        }
+        .notacao{
+            font-weight: bold;
+        }
+        .lab{
+        padding-top: 12px;
+        }
+
+        .link{
+            color: black;
+        }
+        .link:hover{
+            color: black;
+        }
+
     </style>
 
 
@@ -43,8 +74,43 @@
             <h4>Submissions</h4>
         </div>
         <div>
-                <h1>teste</h1>
-            </div>
+            <br>
+            <?php
+
+            foreach($pedidos as $p){
+                echo '<div>';
+                    echo '<div class="grid5">';
+                        echo '<div class="campo">';
+                            echo '<p class="notacao">Image</p>';
+                            echo '<img src="../imagens/'.$p["id"].'/'.$p["referencia"].'.png" width=50>';
+                        echo '</div>';
+                        echo '<div class="campo">';
+                            echo '<p class="notacao">Factory</p>';
+                            echo '<p class="lab">'.$p["nome"].'</p>';
+                        echo '</div>';
+                        echo '<div class="campo">';
+                            echo '<p class="notacao">Reference</p>';
+                            echo '<a class="link" target="_blank" href="pedido.php?i='.$p["id"].'"><p class="lab">'.$p["referencia"].'</p></a>';
+                        echo '</div>';
+                        echo '<div class="campo">';
+                            echo '<p class="notacao">Brand</p>';
+                            echo '<p class="lab">'.$p["marca"].'</p>';
+                        echo '</div>';
+                        echo '<div class="campo">';
+                            echo '<p class="notacao">Link Download</p>';
+                            echo '<a class="link" target="_blank" href="../controllers/downloadController.php?i='.$p["id"].'"><p class="lab">'.$p["linkDownload"].'</p><a/>';
+                        echo '</div>';
+                        echo '<div class="campo">';
+                            echo '<p class="notacao">Deadline</p>';
+                            echo '<p class="lab">'.$p["deadlineAmostra"].'</p>';
+                        echo '</div>';
+                    echo '</div>';
+                echo '</div>';
+                echo '<hr>';
+            }
+
+            ?>
+        </div>
     </div>
 
 </body>
