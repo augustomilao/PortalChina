@@ -67,7 +67,7 @@ include 'components/header.php';
         </div>
 
 
-        <form action="../controllers/pedidoController.php" method="POST">
+        <form action="../controllers/pedidoController.php" method="POST" enctype="multipart/form-data">
             <div class="inside grid2">
                 <div class="centro">
                     <br><br>
@@ -75,7 +75,7 @@ include 'components/header.php';
                         <img id="img" src="../assets/placeholder.jpg" height="297" width="210">
                     </div>
                     <br>
-                    <input required type="file" id="input" name="imagem[]">
+                    <input required type="file" id="imagem" name="imagem">
                 </div>
                 <div class="">
                     <label class="negrito" for="fabrica">Fabricator</label>
@@ -113,11 +113,11 @@ include 'components/header.php';
 
     <script>
         let img = document.getElementById('img');
-        let input = document.getElementById('input');
+        let imagem = document.getElementById('imagem');
 
-        input.onchange = (e) => {
-            if (input.files[0])
-                img.src = URL.createObjectURL(input.files[0]);
+        imagem.onchange = (e) => {
+            if (imagem.files[0])
+                img.src = URL.createObjectURL(imagem.files[0]);
         }
     </script>
 </body>
