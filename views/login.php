@@ -22,7 +22,7 @@
 <div class="container">
 
     <div id="form">
-        <form action="controllers/loginController.php" method="post">
+        <form action="../controllers/loginController.php" method="post">
             <label style="font-weight: bold;" for="usuario">User</label>
             <input class="form-control" type="text" name="usuario">
             <br>

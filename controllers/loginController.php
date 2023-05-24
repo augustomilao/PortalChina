@@ -11,10 +11,11 @@ $a = Login($conn, $usuario, $senha);
 
 if($a != "erro"){
     CriaSessao($a['usuario']);
+    header('Location: ../views/dashboard.php');
 }else{
 
 }
 
-var_dump($_SESSION);
+
 
 ?>

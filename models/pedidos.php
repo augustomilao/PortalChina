@@ -10,8 +10,8 @@ function buscaID($conn){
 }
 
 function buscaPedidoID($conn, $id){
-    $sql = "SELECT * FROM pedidos WHERE  INNER JOIN fabricas ON pedidos.id_fabrica = fabricas.id WHERE id = '$id'";
-    $resultado = $conn -> query($sql) -> fetch_all(MYSQLI_ASSOC);
+    $sql = "SELECT * FROM pedidos WHERE id = '$id'";
+    $resultado = $conn -> query($sql) -> fetch_assoc();
     return $resultado;
 }
 

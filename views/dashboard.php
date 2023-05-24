@@ -1,4 +1,8 @@
 <?php
+include '../controllers/sessaoController.php';
+
+verificaSessao();
+
 
 include '../models/pedidos.php';
 
@@ -90,8 +94,11 @@ $pedidos = buscaTodosPedidos($conn);
                         echo '</div>';
                         echo '<div class="campo">';
                             echo '<p class="notacao">Reference</p>';
-                            echo '<a class="link" target="_blank" href="pedido.php?i='.$p["id"].'"><p class="lab">'.$p["referencia"].'</p></a>';
-                        echo '</div>';
+                            echo '<form action="pedido.php" method="POST">';
+                            echo '<input type="hidden" name="id" value="'.$p["id"].'">';
+                            echo '<button class="btn lab">'.$p["referencia"].'</button>';
+                            echo '</form>';
+                            echo '</div>';
                         echo '<div class="campo">';
                             echo '<p class="notacao">Brand</p>';
                             echo '<p class="lab">'.$p["marca"].'</p>';

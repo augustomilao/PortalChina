@@ -1,5 +1,5 @@
 <?php
-include 'views/dashboard.php';
+echo __DIR__;
 
 
 ?>

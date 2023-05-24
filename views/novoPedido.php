@@ -1,5 +1,10 @@
 <?php
 
+include '../controllers/sessaoController.php';
+
+verificaSessao();
+
+
 $hoje = date('Y-m-d');
 $timestamp = strtotime('+7 days');
 $prazo = date('Y-m-d', $timestamp);

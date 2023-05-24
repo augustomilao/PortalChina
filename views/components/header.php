@@ -30,6 +30,13 @@
             margin-top: 0.6em;
             color: white;
         }
+        .link{
+            color: black;
+        }
+        .link:hover{
+            color: black;
+            text-decoration-line:none
+        }
     </style>
 
 </head>
@@ -43,10 +50,10 @@
             </div>
             <div class="divGrid">
                 <div class="pointer">
-                    <p class="text">New Submission</p>
+                    <a class="link" href="novoPedido.php"><p class="text">New Submission</p></a>
                 </div>
                 <div class="pointer">
-                    <p class="text">Submission Search</p>
+                    <a class="link" href="dashboard.php"> <p class="text">Submission Search</p></a>
                 </div>
             </div>
             <div class="centro">
