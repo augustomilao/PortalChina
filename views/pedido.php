@@ -63,6 +63,7 @@ include 'components/header.php';
         .grid2 {
             display: grid;
             grid-template-columns: 30% 70%;
+            text-align: center;
         }
 
         .centro {
@@ -97,7 +98,7 @@ include 'components/header.php';
             <div class="centro">
                 <br><br>
                 <div>
-                    <?php echo '<a href="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" target="_blank"><img id="img" src="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" height="297" width="210"></a>'; ?>
+                    <?php echo '<a href="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" target="_blank"><img  src="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" height="297" width="210"></a>'; ?>
                 </div>
                 <br>
             </div>
@@ -127,6 +128,47 @@ include 'components/header.php';
         <hr style="border-top: 3px solid #F8B32D;">
         <br>
 
+        <div class="charts">
+            <div style="margin-left:2em;margin-right:2em;">
+                <h2>Select information sheet image</h2>
+                <br>
+                <div  class="grid2">
+                <?php
+                   $charts = glob('../imagens/400/'.$a["referencia"].'.png');
+                   $display = "style='display:none'";
+                   if(empty($charts)){
+                        $charts = "../assets/Charts.png";
+                        $display = " ";
+                   }else{
+                    $charts = $charts[0];
+                   }
+
+                ?>
+                    <div>
+                        <img id="img" src="<?= $charts ?>" height="297" width="210">
+                        <br><br>
+                        <form action="../controllers/sheetsController.php" method="post" enctype="multipart/form-data">                            
+                        
+                    </div>
+                    <div>
+                        <h3>We need an information sheet with the following fields: Height, width, depth, and weight. <a href="../assets/Charts.png" download>Click here to see an example sheet</a></h3>
+                        <small>After the first uploading, the button will disappear. <p style="color:red">So be careful.</p></small>
+                        <br><br><br>
+                        <input type="hidden" value="<?= $a["referencia"]?>" name="referencia">
+                        <input <?= $display ?> required type="file" id="imagem" name="imagem" required>
+                        <br><br><br>
+                        <button <?= $display ?> class="btn btn-success">Send sheet</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+            <br>
+        </div>
+        <br>
+
+        <hr style="border-top: 3px solid #F8B32D;">
+        <br>
         <div class="fotos">
             <div class="fotosgrid">
                 <?php
@@ -175,7 +217,11 @@ include 'components/header.php';
                 <hr>
                 <?php
                 foreach ($comentarios as $c) {
-                    var_dump($c);
+                    // var_dump($c);
+                    echo '<div>';
+                        echo '<h5>'.$c["usuario"].' | '.$c["dataEnviado"].'</h5>';
+                        echo '<p>'.$c["comentario"].'</p>';
+                    echo '</div>';
                     echo '<hr>';
                 }
                 ?>
