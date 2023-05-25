@@ -6,8 +6,15 @@ verificaSessao();
 
 include '../models/pedidos.php';
 
-$pedidos = buscaTodosPedidos($conn);
+if($_SESSION['fabrica']!= 80){
+    $pedidos = buscaTodosPorFabrica($conn, $_SESSION['fabrica']);
+}else{
+    $pedidos = buscaTodosPedidos($conn);
+}
 
+$hoje = time();
+$atrasados = [];
+// var_dump($_SESSION);
 
 ?>
 <!DOCTYPE html>
@@ -42,7 +49,7 @@ $pedidos = buscaTodosPedidos($conn);
         }
         .grid5{
             display: grid;
-            grid-template-columns: 222px 222px 222px 222px 222px 222px;
+            grid-template-columns: 180px 222px 222px 222px 222px 222px;
         }
         .campo{
             text-align: center;
@@ -60,7 +67,18 @@ $pedidos = buscaTodosPedidos($conn);
         .link:hover{
             color: black;
         }
-
+        .grid3{
+            display: grid;
+            grid-template-columns: auto auto auto;
+            gap: 1em;
+            margin: auto;
+            width: 30%;
+        }
+        .escolhas{
+            border: 1px solid black;
+            border-radius: 10px;
+            cursor: pointer;
+        }
     </style>
 
 
@@ -71,9 +89,14 @@ $pedidos = buscaTodosPedidos($conn);
     <?php include 'components/header.php' ?>
 
     <br>
-
+        <div class="grid3">
+            <img class="escolhas" width="60" src="../assets/atrasado.png" alt="">
+            <img class="escolhas" width="60" src="../assets/normal.png" alt="">
+            <img class="escolhas" width="60" src="../assets/finalizado.png" alt="">
+        </div>
+    <br>
     <div class="card">
-
+        
         <div class="inicio">
             <h4>Submissions</h4>
         </div>
@@ -82,11 +105,30 @@ $pedidos = buscaTodosPedidos($conn);
             <?php
 
             foreach($pedidos as $p){
+
+                $deadline = $p['deadlineAmostra'];
+                $deadline = strtotime($deadline);
+                $tempo = (($deadline - $hoje)/86400);
+                $tempo = intval($tempo) + 1;
+
+                // TODO: Criar uma ideia de cores
+                if($tempo <= 12 && $tempo > 8){
+                    $cor = "yellow";
+                    array_push($atrasados, $p);
+                }elseif($tempo <= 8){
+                    $cor = "red";
+                    array_push($atrasados, $p);
+                }else{
+                    $cor = "green";
+                    
+                }
+
+
                 echo '<div>';
                     echo '<div class="grid5">';
                         echo '<div class="campo">';
                             echo '<p class="notacao">Image</p>';
-                            echo '<img src="../imagens/'.$p["id"].'/'.$p["referencia"].'.png" width=50>';
+                            echo '<img src="../imagens/'.$p["id_fabrica"].'/'.$p["referencia"].'.png" width=50>';
                         echo '</div>';
                         echo '<div class="campo">';
                             echo '<p class="notacao">Factory</p>';
@@ -107,7 +149,7 @@ $pedidos = buscaTodosPedidos($conn);
                             echo '<p class="notacao">Link Download</p>';
                             echo '<a class="link" target="_blank" href="../controllers/downloadController.php?i='.$p["id"].'"><p class="lab">'.$p["linkDownload"].'</p><a/>';
                         echo '</div>';
-                        echo '<div class="campo">';
+                        echo '<div class="campo" style="background-color:'.$cor.';color:black">';
                             echo '<p class="notacao">Deadline</p>';
                             echo '<p class="lab">'.$p["deadlineAmostra"].'</p>';
                         echo '</div>';
@@ -119,6 +161,76 @@ $pedidos = buscaTodosPedidos($conn);
             ?>
         </div>
     </div>
+
+    <br><br>
+    
+    <div class="card">
+    <a></a>
+        <div class="inicio">
+            <h4> Only the close to deadline submissions</h4>
+        </div>
+        <div>
+            <br>
+            <?php
+
+            foreach($atrasados as $c){
+
+                $deadline = $c['deadlineAmostra'];
+                $deadline = strtotime($deadline);
+                $tempo = (($deadline - $hoje)/86400);
+                $tempo = intval($tempo) + 1;
+
+                // TODO: Criar uma ideia de cores
+                if($tempo <= 12 && $tempo > 8){
+                    $cor = "yellow";
+                    array_push($atrasados, $c);
+                }elseif($tempo <= 8){
+                    $cor = "red";
+                    array_push($atrasados, $c);
+                }else{
+                    $cor = "green";
+                    
+                }
+
+
+                echo '<div>';
+                    echo '<div class="grid5">';
+                        echo '<div class="campo">';
+                            echo '<p class="notacao">Image</p>';
+                            echo '<img src="../imagens/'.$c["id_fabrica"].'/'.$c["referencia"].'.png" width=50>';
+                        echo '</div>';
+                        echo '<div class="campo">';
+                            echo '<p class="notacao">Factory</p>';
+                            echo '<p class="lab">'.$c["nome"].'</p>';
+                        echo '</div>';
+                        echo '<div class="campo">';
+                            echo '<p class="notacao">Reference</p>';
+                            echo '<form action="pedido.php" method="POST">';
+                            echo '<input type="hidden" name="id" value="'.$c["id"].'">';
+                            echo '<button class="btn lab">'.$c["referencia"].'</button>';
+                            echo '</form>';
+                            echo '</div>';
+                        echo '<div class="campo">';
+                            echo '<p class="notacao">Brand</p>';
+                            echo '<p class="lab">'.$c["marca"].'</p>';
+                        echo '</div>';
+                        echo '<div class="campo">';
+                            echo '<p class="notacao">Link Download</p>';
+                            echo '<a class="link" target="_blank" href="../controllers/downloadController.php?i='.$c["id"].'"><p class="lab">'.$c["linkDownload"].'</p><a/>';
+                        echo '</div>';
+                        echo '<div class="campo" style="background-color:'.$cor.';color:black">';
+                            echo '<p class="notacao">Deadline</p>';
+                            echo '<p class="lab">'.$c["deadlineAmostra"].'</p>';
+                        echo '</div>';
+                    echo '</div>';
+                echo '</div>';
+                echo '<hr>';
+            }
+
+            ?>
+        </div>
+    </div>
+    <br><br>    
 
 </body>
 

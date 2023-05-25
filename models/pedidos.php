@@ -28,7 +28,25 @@ function inicioPedido($conn, $fabrica, $referencia, $marca, $linkDownload, $data
 }
 
 function buscaTodosPedidos($conn){
-    $sql = "SELECT * FROM pedidos INNER JOIN fabricas ON pedidos.id_fabrica  = fabricas.id";
+    $sql = "SELECT *,pedidos.id FROM pedidos INNER JOIN fabricas ON pedidos.id_fabrica = fabricas.id WHERE pedidos.finalizado = 0";
+    $resultado = $conn -> query($sql) -> fetch_all(MYSQLI_ASSOC);
+    return $resultado;
+}
+
+function buscaTodosPedidosFinalizados($conn){
+    $sql = "SELECT *,pedidos.id FROM pedidos INNER JOIN fabricas ON pedidos.id_fabrica = fabricas.id WHERE pedidos.finalizado = 1";
+    $resultado = $conn -> query($sql) -> fetch_all(MYSQLI_ASSOC);
+    return $resultado;
+}
+
+function buscaTodosPorFabrica($conn, $id_fabrica){
+    $sql = "SELECT *,pedidos.id FROM pedidos INNER JOIN fabricas ON pedidos.id_fabrica = fabricas.id WHERE pedidos.id_fabrica = '$id_fabrica' AND pedidos.finalizado = 0";
+    $resultado = $conn -> query($sql) -> fetch_all(MYSQLI_ASSOC);
+    return $resultado;
+}
+
+function buscaTodosPorFabricaFinalizados($conn, $id_fabrica){
+    $sql = "SELECT *,pedidos.id FROM pedidos INNER JOIN fabricas ON pedidos.id_fabrica = fabricas.id WHERE pedidos.id_fabrica = '$id_fabrica' AND pedidos.finalizado = 1";
     $resultado = $conn -> query($sql) -> fetch_all(MYSQLI_ASSOC);
     return $resultado;
 }

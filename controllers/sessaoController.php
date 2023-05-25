@@ -8,8 +8,9 @@ function verificaSessao(){
     }
 }
 
-function CriaSessao($id){
+function CriaSessao($id, $fabrica){
     $_SESSION['id'] = $id;
+    $_SESSION['fabrica'] = $fabrica;
 }
 
 function ApagaSessao(){

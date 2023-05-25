@@ -72,6 +72,7 @@ include 'components/header.php';
         .fotosgrid {
             display: grid;
             grid-template-columns: auto auto auto auto auto auto auto auto;
+            gap: 5px;
             width: 90%;
             margin: auto;
         }
