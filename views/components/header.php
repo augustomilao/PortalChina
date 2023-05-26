@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -20,22 +24,27 @@
         .centro {
             text-align: center;
         }
-        .pointer{
+
+        .pointer {
             cursor: pointer;
         }
-        .pointer:hover{
+
+        .pointer:hover {
             font-weight: bold;
         }
-        .text{
+
+        .text {
             margin-top: 0.6em;
             color: white;
         }
-        .link{
+
+        .link {
             color: black;
         }
-        .link:hover{
+
+        .link:hover {
             color: black;
-            text-decoration-line:none
+            text-decoration-line: none
         }
     </style>
 
@@ -48,16 +57,34 @@
             <div class="centro" style="font-weight: bold">
                 <p class="text">SISIMC</p>
             </div>
-            <div class="divGrid">
-                <div class="pointer">
-                    <a class="link" href="novoPedido.php"><p class="text">New Submission</p></a>
-                </div>
-                <div class="pointer">
-                    <a class="link" href="dashboard.php"> <p class="text">Submission Search</p></a>
-                </div>
-            </div>
+
+            <!--  
+                //TODO: Se for um usuário ADM, tem que ter a opção New Submission. Se não, ter apenas a Submission Search
+            -->
+            <?php
+            if ($_SESSION['privilegio'] == "fabrica") {
+                echo '<div class="pointer" style="text-align: center;">';
+                echo '<a class="link" href="dashboard.php"> <p class="text">Submission Search</p></a>';
+                echo '</div>';
+            } else {
+                 echo '<div class="divGrid">';
+                 echo '<div class="pointer">';
+                 echo '    <a class="link" href="novoPedido.php">';
+                 echo '        <p class="text">New Submission</p>';
+                 echo '    </a>';
+                 echo '</div>';
+                 echo '<div class="pointer">';
+                 echo '    <a class="link" href="dashboard.php">';
+                 echo '        <p class="text">Submission Search</p>';
+                 echo '    </a>';
+                 echo '</div>';
+                 echo '</div>';
+            }?>
+
             <div class="centro">
-                <p class="text">Usuario</p>
+                <a class="link" href="../controllers/logoutController.php">
+                    <p class="text">Logout</p>
+                </a>
             </div>
         </div>
     </header>

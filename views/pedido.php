@@ -1,4 +1,6 @@
 <?php
+// TODO: Criar um campo de confirmação de pedido para os usuários
+
 include '../controllers/sessaoController.php';
 
 verificaSessao();
@@ -125,6 +127,13 @@ include 'components/header.php';
                 <input required class="form-control" type="date" name="deadlineAmostra" value="<?= $a["deadlineAmostra"] ?>" readonly>
             </div>
         </div>
+        <br><br>
+        <div class="container" style="text-align: center;">
+            <h3 style="color:brown">Want to suggest a new deadline Date?</h3>
+            <input style="width:30%;margin:auto" class="form-control" type="date">
+            <br>
+            <button class="btn btn-outline-success">Suggest</button>
+        </div>
         <hr style="border-top: 3px solid #F8B32D;">
         <br>
 
@@ -137,7 +146,7 @@ include 'components/header.php';
                    $charts = glob('../imagens/400/'.$a["referencia"].'.png');
                    $display = "style='display:none'";
                    if(empty($charts)){
-                        $charts = "../assets/Charts.png";
+                        $charts = "../assets/placeholder.jpg";
                         $display = " ";
                    }else{
                     $charts = $charts[0];

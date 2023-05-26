@@ -1,8 +1,8 @@
 <?php
-include '../controllers/sessaoController.php';
+include_once '../controllers/sessaoController.php';
 
 verificaSessao();
-
+// var_dump($_SESSION);
 
 include '../models/pedidos.php';
 
