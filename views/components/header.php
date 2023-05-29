@@ -58,9 +58,6 @@
                 <p class="text">SISIMC</p>
             </div>
 
-            <!--  
-                //TODO: Se for um usuário ADM, tem que ter a opção New Submission. Se não, ter apenas a Submission Search
-            -->
             <?php
             if ($_SESSION['privilegio'] == "fabrica") {
                 echo '<div class="pointer" style="text-align: center;">';
