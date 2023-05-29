@@ -13,4 +13,11 @@ function novoComentario($conn, $id_pedidos, $comentario, $dataEnviado, $usuario)
     $conn -> query($sql);
 }
 
+function todosComentarios($conn){
+    $sql = "SELECT * FROM comentarios";
+    $result = $conn -> query($sql) -> fetch_all(MYSQLI_ASSOC);
+
+    return $result;
+}
+
 ?>

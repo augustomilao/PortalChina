@@ -136,9 +136,15 @@ include 'components/header.php';
         <!-- //TODO: Funcionario x Empresa -->
         <div class="container" style="text-align: center;">
             <h3 style="color:brown">Want to suggest a new deadline Date?</h3>
-            <input style="width:30%;margin:auto" class="form-control" type="date">
-            <br>
-            <button class="btn btn-outline-success">Suggest</button>
+            <form action="../controllers/deadlineController.php" method="post">
+                <input style="width:30%;margin:auto" class="form-control" type="date" name="nova_deadline">
+                
+                <input type="hidden" value="<?= $pedido ?>" name="id_pedido">
+                <input type="hidden" value="<?=  $a["deadlineAmostra"] ?>" name="antiga_deadline">
+                
+                <br>
+                <button class="btn btn-outline-success">Suggest</button>
+            </form>
         </div>
         <hr style="border-top: 3px solid #F8B32D;">
         <br>
