@@ -56,4 +56,9 @@ function confirmaDownload($conn, $id){
     $resultado = $conn -> query($sql);
 }
 
+function iniciaProducao($conn, $id){
+    $sql = "UPDATE pedidos SET statusAmostra = 1 WHERE id = '$id' ";
+    $resultado = $conn -> query($sql);
+}
+
 ?>

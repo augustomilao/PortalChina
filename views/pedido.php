@@ -87,7 +87,12 @@ include 'components/header.php';
 
     <br>
     <div style="width:550px;margin:auto">
-        <img src="../assets/1stage.png" alt="stage" height="50">
+    <?php if($a['statusAmostra'] == 1){
+        echo '<img src="../assets/2stage.png" alt="stage" height="50">';
+    }else{
+        echo '<img src="../assets/1stage.png" alt="stage" height="50">';
+    }
+    ?>
     </div>
     <br>
     <div class="card">
@@ -128,6 +133,7 @@ include 'components/header.php';
             </div>
         </div>
         <br><br>
+        <!-- //TODO: Funcionario x Empresa -->
         <div class="container" style="text-align: center;">
             <h3 style="color:brown">Want to suggest a new deadline Date?</h3>
             <input style="width:30%;margin:auto" class="form-control" type="date">
@@ -154,7 +160,7 @@ include 'components/header.php';
 
                 ?>
                     <div>
-                        <img id="img" src="<?= $charts ?>" height="297" width="210">
+                        <img id="img" src="<?= $charts ?>" height="297" width="210" style="border: solid 1px black;">
                         <br><br>
                         <form action="../controllers/sheetsController.php" method="post" enctype="multipart/form-data">                            
                         
@@ -202,6 +208,26 @@ include 'components/header.php';
                 </form>
             </div>
         </div>
+        <!-- //TODO: -->
+
+        <?php 
+            if($_SESSION['privilegio'] == "gerente"){
+        ?>
+        <hr style="border-top: 3px solid #F8B32D;">
+        <br>
+        <div style="margin-left:2em;margin-right:2em;">
+        <h2>Can we go to Production?</h2>
+        <br>
+        <form action="../controllers/amostrasController.php" method="post">
+            <input type="hidden" value="<?= $pedido ?>" name="id">
+            <button type="submit" class="btn btn-danger">Next Step : Production</button>
+        </form>
+
+        <br>
+        </div>
+        <?php
+            }
+        ?>
 
         <hr style="border-top: 3px solid #F8B32D;">
         <br>
