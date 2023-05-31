@@ -6,6 +6,7 @@ verificaSessao();
 
 include '../models/pedidos.php';
 
+// 80 = Sinal para ver todas
 if($_SESSION['fabrica']!= 80){
     $pedidos = buscaTodosPorFabrica($conn, $_SESSION['fabrica']);
 }else{
@@ -32,6 +33,10 @@ $atrasados = [];
 
 
     <style>
+        p{
+            padding: 0;
+            margin: 0;
+        }
         .card {
             border: 3px solid black;
             border-radius: 10px;
@@ -49,16 +54,17 @@ $atrasados = [];
         }
         .grid5{
             display: grid;
-            grid-template-columns: 180px 222px 222px 222px 222px 222px;
+            grid-template-columns: 5% 20% 20% 20% 20% 15%;
         }
         .campo{
             text-align: center;
+            height: 30px;
         }
         .notacao{
             font-weight: bold;
         }
-        .lab{
-        padding-top: 12px;
+        .linhas{
+            height: 30px;
         }
 
         .link{
@@ -79,6 +85,11 @@ $atrasados = [];
             border-radius: 10px;
             cursor: pointer;
         }
+        .lab{
+            height: 30px;
+            padding-top: 3px;
+        }
+
     </style>
 
 
@@ -101,9 +112,11 @@ $atrasados = [];
             <h4>Submissions</h4>
         </div>
         <div>
-            <br>
+        <hr style="border-top:1px solid black; padding:0 ; margin:0">
             <?php
-
+            if(empty($pedidos)){
+                echo "<h3 style='margin:1em'>Oops. No submissions yet!</h3>";
+            }else{
             foreach($pedidos as $p){
 
                 $deadline = $p['deadlineAmostra'];
@@ -124,40 +137,34 @@ $atrasados = [];
                 }
 
 
-                echo '<div>';
+                echo '<div class="linhas">';
                     echo '<div class="grid5">';
                         echo '<div class="campo">';
-                            echo '<p class="notacao">Image</p>';
-                            echo '<img src="../imagens/'.$p["id_fabrica"].'/'.$p["referencia"].'.png" width=50>';
+                            echo '<img src="../imagens/'.$p["id_fabrica"].'/'.$p["referencia"].'.png" height=20>';
                         echo '</div>';
                         echo '<div class="campo">';
-                            echo '<p class="notacao">Factory</p>';
                             echo '<p class="lab">'.$p["nome"].'</p>';
                         echo '</div>';
                         echo '<div class="campo">';
-                            echo '<p class="notacao">Reference</p>';
-                            echo '<form action="pedido.php" method="POST">';
+                            echo '<form action="pedido.php" method="POST" style="height:30px">';
                             echo '<input type="hidden" name="id" value="'.$p["id"].'">';
-                            echo '<button class="btn lab">'.$p["referencia"].'</button>';
+                            echo '<button class="btn lab" style="height:30px;padding:0;margin:0">'.$p["referencia"].'</button>';
                             echo '</form>';
                             echo '</div>';
                         echo '<div class="campo">';
-                            echo '<p class="notacao">Brand</p>';
                             echo '<p class="lab">'.$p["marca"].'</p>';
                         echo '</div>';
                         echo '<div class="campo">';
-                            echo '<p class="notacao">Link Download</p>';
                             echo '<a class="link" target="_blank" href="../controllers/downloadController.php?i='.$p["id"].'"><p class="lab">'.$p["linkDownload"].'</p><a/>';
                         echo '</div>';
                         echo '<div class="campo" style="background-color:'.$cor.';color:black">';
-                            echo '<p class="notacao">Deadline</p>';
                             echo '<p class="lab">'.$p["deadlineAmostra"].'</p>';
                         echo '</div>';
                     echo '</div>';
                 echo '</div>';
-                echo '<hr>';
+                echo '<hr style="border-top:1px solid black; padding:0 ; margin:0">';
             }
-
+        }
             ?>
         </div>
     </div>
