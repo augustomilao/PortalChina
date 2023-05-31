@@ -4,7 +4,7 @@ include '../controllers/sessaoController.php';
 
 verificaSessao();
 
-
+$ano = date('Y');
 $hoje = date('Y-m-d');
 $timestamp = strtotime('+7 days');
 $prazo = date('Y-m-d', $timestamp);
@@ -15,7 +15,7 @@ include 'components/header.php';
 include '../models/fabrica.php';
 include '../models/pedidos.php';
 
-$pedido = "AM-" . buscaID($conn);
+$pedido = "AM-" . buscaID($conn) .'-'. $ano;
 
 
 $abr = mostraFabricasPorEmpresa($conn, 'ABR');
@@ -100,7 +100,7 @@ $luminus = mostraFabricasPorEmpresa($conn, 'LUMINUS');
                 </div>
                 <div class="">
                     <label class="negrito" for="fabrica">Fabricator</label>
-                    <select class="form-control" name="fabrica" id="fabrica" required>
+                    <select class="form-control" name="fabrica" id="fabrica" required onchange="Mudanca()">
                         <option value="" selected>Choose one</option>
                         <optgroup label="ABR E UP">
                             <?php
@@ -118,11 +118,12 @@ $luminus = mostraFabricasPorEmpresa($conn, 'LUMINUS');
                             <?php
                             foreach ($luminus as $l) {
                                 echo '<option value="' . $l["id"] . '">' . $l["nome"] . '</option>';
+                                // 8
                             }
                             ?>
                     </select>
                     <label class="negrito" for="referencia">Reference</label>
-                    <input required class="form-control" type="text" name="referencia" value="<?= $pedido ?>" readonly>
+                    <input required class="form-control" type="text" id="referencia" name="referencia" value="<?= $pedido ?>" readonly>
                     <label class="negrito" for="marca">Brand</label>
                     <input required class="form-control" type="text" name="marca">
                     <label class="negrito" for="linkDownload">Download Link</label>
@@ -159,6 +160,17 @@ $luminus = mostraFabricasPorEmpresa($conn, 'LUMINUS');
         imagem.onchange = (e) => {
             if (imagem.files[0])
                 img.src = URL.createObjectURL(imagem.files[0]);
+        }
+
+        function Mudanca(){
+            var e = document.getElementById("fabrica");
+            var value = e.value;
+
+            if(value == 8){
+                document.getElementById("referencia").readOnly = false;
+            }else{
+                document.getElementById("referencia").readOnly = true;
+            }
         }
     </script>
 </body>
