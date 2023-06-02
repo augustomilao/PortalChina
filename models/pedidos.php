@@ -23,7 +23,7 @@ function buscaLink($conn, $id){
 }
 
 function inicioPedido($conn, $fabrica, $referencia, $marca, $linkDownload, $dataEnvio, $dataDownload, $deadlineAmostra){
-    $sql = "INSERT INTO pedidos (id_fabrica, referencia, marca, linkDownload, dataEnvio, dataDownload, deadlineAmostra) VALUES ('$fabrica', '$referencia', '$marca', '$linkDownload', '$dataEnvio', '$dataDownload', '$deadlineAmostra')";
+    $sql = "INSERT INTO pedidos (id_fabrica, referencia, marca, linkDownload, dataEnvio, dataDownload, deadlineAmostra, revisao) VALUES ('$fabrica', '$referencia', '$marca', '$linkDownload', '$dataEnvio', '$dataDownload', '$deadlineAmostra' , 'rev0')";
     $resultado = $conn -> query($sql);
 }
 

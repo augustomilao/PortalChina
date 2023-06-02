@@ -17,7 +17,7 @@
 
         .divGrid {
             display: grid;
-            grid-template-columns: 50% 50%;
+            grid-template-columns: 33% 33% 33%;
             text-align: center;
         }
 
@@ -73,6 +73,11 @@
                  echo '<div class="pointer">';
                  echo '    <a class="link" href="dashboard.php">';
                  echo '        <p class="text">Submission Search</p>';
+                 echo '    </a>';
+                 echo '</div>';
+                 echo '<div class="pointer">';
+                 echo '    <a class="link" href="dashboard.php">';
+                 echo '        <p class="text">New Register</p>';
                  echo '    </a>';
                  echo '</div>';
                  echo '</div>';

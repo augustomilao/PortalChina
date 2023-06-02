@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+include '../models/pedidos.php';
+
+$pedido = buscaPedidoID($conn, 10);
+
+print_r($pedido);
 
 ?>
 <!DOCTYPE html>
@@ -17,10 +24,7 @@
 
 <body>
 
-<hr>
-    <div>
-
-    </div>
+<?php include 'components/header.php'; ?>
 
 </body>
 

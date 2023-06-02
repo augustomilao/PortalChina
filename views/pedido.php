@@ -22,6 +22,21 @@ $f = pegaFabricaPorID($conn, $a['id_fabrica']);
 
 $comentarios = comentariosPorPedido($conn, $pedido);
 
+$revisao = $a['revisao'];
+
+// TODO: ABAS
+// $abas = [];
+
+// array_push($abas, "");
+// $x = 1;
+// while($x <= $revisao){
+//     $rev = "rev" . $x;
+//     array_push($abas,$rev);
+//     $x = $x + 1;
+// }
+
+// var_dump($abas);
+
 include 'components/header.php';
 ?>
 <!DOCTYPE html>
@@ -64,8 +79,8 @@ include 'components/header.php';
 
         .grid2 {
             display: grid;
-            grid-template-columns: 30% 70%;
-            text-align: center;
+            grid-template-columns: 20% 80%;
+            /* text-align: center; */
         }
 
         .centro {
@@ -79,6 +94,13 @@ include 'components/header.php';
             width: 90%;
             margin: auto;
         }
+
+        .abas{
+            display: none;
+        }
+
+        
+
     </style>
 
 </head>
@@ -87,12 +109,12 @@ include 'components/header.php';
 
     <br>
     <div style="width:550px;margin:auto">
-    <?php if($a['statusAmostra'] == 1){
-        echo '<img src="../assets/2stage.png" alt="stage" height="50">';
-    }else{
-        echo '<img src="../assets/1stage.png" alt="stage" height="50">';
-    }
-    ?>
+        <?php if ($a['statusAmostra'] == 1) {
+            echo '<img src="../assets/2stage.png" alt="stage" height="50">';
+        } else {
+            echo '<img src="../assets/1stage.png" alt="stage" height="50">';
+        }
+        ?>
     </div>
     <br>
     <div class="card">
@@ -105,95 +127,90 @@ include 'components/header.php';
             <div class="centro">
                 <br><br>
                 <div>
-                    <?php echo '<a href="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" target="_blank"><img  src="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" height="297" width="210"></a>'; ?>
+                    <?php echo '<a href="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" target="_blank"><img  src="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" height="148" width="105"></a>'; ?>
                 </div>
                 <br>
             </div>
             <div class="">
+                <br>
                 <label class="negrito" for="fabrica">Fabricator</label>
-                <input class="form-control" name="fabrica" value="<?= $f['nome'] ?>" readonly>
-                <label class="negrito" for="referencia">Reference</label>
-                <input required class="form-control" type="text" name="referencia" value="<?= $a["referencia"] ?>" readonly>
-                <label class="negrito" for="marca">Brand</label>
-                <input required class="form-control" type="text" name="marca" value="<?= $a["marca"] ?>" readonly>
-                <label class="negrito" for="linkDownload">Download Link</label>
-                <input required class="form-control" type="text" name="linkDownload" value="<?= $a["linkDownload"] ?>" readonly>
-                <div style="display: grid;grid-template-columns: auto auto; gap:10px">
+                <p><?= $f['nome'] ?></p>
+                <div>
+                    <div style="display: grid;grid-template-columns: 33% 33% 33%; gap:10px">
+                        <div>
+                            <label class="negrito" for="referencia">Reference</label>
+                            <p><?= $a["referencia"] ?></p>
+                        </div>
+                        <div>
+                            <label class="negrito" for="marca">Brand</label>
+                            <p><?= $a["marca"] ?></p>
+                        </div>
+                        <div>
+                            <label class="negrito" for="linkDownload">Download Link</label>
+                            <p><?= $a["linkDownload"] ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: grid;grid-template-columns: 33% 33% 33%; gap:10px">
                     <div>
                         <label class="negrito" for="dataEnvio">Upload Date</label>
-                        <input required class="form-control" type="text" name="dataEnvio" value="<?= $a["dataEnvio"] ?>" readonly>
+                        <p><?= $a["dataEnvio"] ?></p>
                     </div>
                     <div>
                         <label class="negrito" for="dataDownload">Limit Download Date</label>
-                        <input required class="form-control" type="text" name="dataDownload" value="<?= $a["dataDownload"] ?>" readonly>
-                    </div>
-                </div>
-                <label class="negrito" for="deadlineAmostra">Sample Deadline</label>
-                <input required class="form-control" type="date" name="deadlineAmostra" value="<?= $a["deadlineAmostra"] ?>" readonly>
-            </div>
-        </div>
-        <br><br>
-        <!-- //TODO: Funcionario x Empresa -->
-        <div class="container" style="text-align: center;">
-            <h3 style="color:brown">Want to suggest a new deadline Date?</h3>
-            <form action="../controllers/deadlineController.php" method="post">
-                <input style="width:30%;margin:auto" class="form-control" type="date" name="nova_deadline">
-                
-                <input type="hidden" value="<?= $pedido ?>" name="id_pedido">
-                <input type="hidden" value="<?=  $a["deadlineAmostra"] ?>" name="antiga_deadline">
-                
-                <br>
-                <button class="btn btn-outline-success">Suggest</button>
-            </form>
-        </div>
-        <hr style="border-top: 3px solid #F8B32D;">
-        <br>
-
-        <div class="charts">
-            <div style="margin-left:2em;margin-right:2em;">
-                <h2>Select information sheet image</h2>
-                <br>
-                <div  class="grid2">
-                <?php
-                   $charts = glob('../imagens/400/'.$a["referencia"].'.png');
-                   $display = "style='display:none'";
-                   if(empty($charts)){
-                        $charts = "../assets/placeholder.jpg";
-                        $display = " ";
-                   }else{
-                    $charts = $charts[0];
-                   }
-
-                ?>
-                    <div>
-                        <img id="img" src="<?= $charts ?>" height="297" width="210" style="border: solid 1px black;">
-                        <br><br>
-                        <form action="../controllers/sheetsController.php" method="post" enctype="multipart/form-data">                            
-                        
+                        <p><?= $a["dataDownload"] ?></p>
                     </div>
                     <div>
-                        <h3>We need an information sheet with the following fields: Height, width, depth, and weight. <a href="../assets/Charts.png" download>Click here to see an example sheet</a></h3>
-                        <small>After the first uploading, the button will disappear. <p style="color:red">So be careful.</p></small>
-                        <br><br><br>
-                        <input type="hidden" value="<?= $a["referencia"]?>" name="referencia">
-                        <input <?= $display ?> required type="file" id="imagem" name="imagem" required>
-                        <br><br><br>
-                        <button <?= $display ?> class="btn btn-success">Send sheet</button>
+                        <label class="negrito" for="deadlineAmostra">Sample Deadline</label>
+                        <p><?= $a["deadlineAmostra"] ?></p>
                     </div>
-                    </form>
+                </div>
+                <hr>
+                <div style="display: grid;grid-template-columns: 25% 25% 25% 25%; gap:10px">
+                    <div>
+                        <label class="negrito" for="dataEnvio">Weight (g/kg/lbs)</label>
+                        <p><?= $a["weight"] ?></p>
+                    </div>
+                    <div>
+                        <label class="negrito" for="dataDownload">Length (cm)</label>
+                        <p><?= $a["length"] ?></p>
+                    </div>
+                    <div>
+                        <label class="negrito" for="deadlineAmostra">Depth (cm)</label>
+                        <p><?= $a["depth"] ?></p>
+                    </div>
+                    <div>
+                        <label class="negrito" for="deadlineAmostra">Width (cm)</label>
+                        <p><?= $a["width"] ?></p>
+                    </div>
                 </div>
             </div>
-
-            <br>
         </div>
-        <br>
 
         <hr style="border-top: 3px solid #F8B32D;">
-        <br>
+
         <div class="fotos">
-            <div class="fotosgrid">
+            <h4 style="margin: 0 2em;">Samples</h4>
+            <div style="height: 30px;">
+                <div style="width: 20%; display:grid; grid-template-columns: auto auto auto;margin:auto;">
+                    <div style="text-align:center;">
+                        <img onclick="Andar(-1)" height="30" src="../assets/Left.png" alt="">
+                    </div>
+                    <div>
+                        <h4 id="paginas" style="text-align: center;"><?= $revisao ?></h4>
+                    </div>
+                    <div style="text-align:center;">
+                        <img onclick="Andar(1)" height="30" src="../assets/Right.png" alt="">
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- // TODO: Ver como funciona as fotos -->
+            <div class="fotosgrid abas" id="0">
                 <?php
                 $fotos = glob("../imagens/200/" . $a["referencia"] . "*.png");
+
                 if (empty($fotos)) {
                     echo '<img src="../assets/placeholder100.png">';
                 } else {
@@ -203,70 +220,100 @@ include 'components/header.php';
                 }
                 ?>
             </div>
+            <div class="fotosgrid abas" id="1">
+            <?php
+                $fotos1 = glob("../imagens/200/rev1/" . $a["referencia"] . "*.png");
+
+                if (empty($fotos1)) {
+                    echo '<img src="../assets/placeholder100.png">';
+                } else {
+                    foreach ($fotos1 as $f) {
+                        echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=150 height=150 ></a>';
+                    }
+                }
+                ?>
+            </div>
+            <div class="fotosgrid abas" id="2">
+            <?php
+                $fotos2 = glob("../imagens/200/rev2/" . $a["referencia"] . "*.png");
+
+                if (empty($fotos2)) {
+                    echo '<img src="../assets/placeholder100.png">';
+                } else {
+                    foreach ($fotos2 as $f) {
+                        echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=150 height=150 ></a>';
+                    }
+                }
+                ?>
+            </div>
+            <div class="fotosgrid abas" id="3">
+            <?php
+                $fotos3 = glob("../imagens/200/rev3/" . $a["referencia"] . "*.png");
+
+                if (empty($fotos3)) {
+                    echo '<img src="../assets/placeholder100.png">';
+                } else {
+                    foreach ($fotos3 as $f) {
+                        echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=350 height=150 ></a>';
+                    }
+                }
+                ?>
+            </div>
+            <div class="fotosgrid abas" id="4">
+            <?php
+                $fotos4 = glob("../imagens/200/rev4/" . $a["referencia"] . "*.png");
+
+                if (empty($fotos4)) {
+                    echo '<img src="../assets/placeholder100.png">';
+                } else {
+                    foreach ($fotos4 as $f) {
+                        echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=150 height=150 ></a>';
+                    }
+                }
+                ?>
+            </div>
+            <div class="fotosgrid abas" id="5">
+            <?php
+                $fotos5 = glob("../imagens/200/rev5/" . $a["referencia"] . "*.png");
+
+                if (empty($fotos5)) {
+                    echo '<img src="../assets/placeholder100.png">';
+                } else {
+                    foreach ($fotos5 as $f) {
+                        echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=150 height=150 ></a>';
+                    }
+                }
+                ?>
+            </div>  
             <br>
             <div style="margin-left:2em;margin-right:2em;">
                 <h2>Select Images to upload</h2>
                 <form action="../controllers/fotosController.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="referencia" value="<?= $a["referencia"] ?>">
+                    <input type="hidden" name="revisao" value="<?= $a["revisao"] ?>">
                     <input type="file" id="imagem" name="imagem[]" multiple>
                     <br><br>
                     <button class="btn btn-primary">Submit Images</button>
                 </form>
             </div>
         </div>
-        <!-- //TODO: -->
 
-        <?php 
-            if($_SESSION['privilegio'] == "gerente"){
-        ?>
         <hr style="border-top: 3px solid #F8B32D;">
+
         <br>
         <div style="margin-left:2em;margin-right:2em;">
-        <h2>Can we go to Production?</h2>
-        <br>
-        <form action="../controllers/amostrasController.php" method="post">
-            <input type="hidden" value="<?= $pedido ?>" name="id">
-            <button type="submit" class="btn btn-danger">Next Step : Production</button>
-        </form>
-
-        <br>
-        </div>
-        <?php
+            <h2>Comments</h2>
+            <hr>
+            <?php
+            foreach ($comentarios as $c) {
+                // var_dump($c);
+                echo '<div>';
+                echo '<h5>' . $c["usuario"] . ' | ' . $c["dataEnviado"] . '</h5>';
+                echo '<p>' . $c["comentario"] . '</p>';
+                echo '</div>';
+                echo '<hr>';
             }
-        ?>
-
-        <hr style="border-top: 3px solid #F8B32D;">
-        <br>
-        <div>
-            <div style="margin-left:2em;margin-right:2em;">
-                <h2>New Comment</h2>
-                <div class="novoComentario">
-                    <form action="../controllers/comentariosController.php" method="post">
-                        <input type="hidden" name="usuario" value="<?= $_SESSION['id'] ?>">
-                        <input type="hidden" name="dataEnviado" value="<?= $hoje ?>">
-                        <input type="hidden" name="id_pedidos" value="<?= $pedido ?>">
-                        <label for="comentario">New Comment</label>
-                        <div style="width: 90%;">
-                            <textarea name="comentario" class="form-control" style="resize:none" rows="3" cols="50" maxlength="250"></textarea>
-                        </div>
-                        <br>
-                        <button class="btn btn-success">Send Comment</button>
-                    </form>
-                    <br>
-                </div>
-                <h2>Comments</h2>
-                <hr>
-                <?php
-                foreach ($comentarios as $c) {
-                    // var_dump($c);
-                    echo '<div>';
-                        echo '<h5>'.$c["usuario"].' | '.$c["dataEnviado"].'</h5>';
-                        echo '<p>'.$c["comentario"].'</p>';
-                    echo '</div>';
-                    echo '<hr>';
-                }
-                ?>
-            </div>
+            ?>
         </div>
     </div>
 
@@ -274,6 +321,38 @@ include 'components/header.php';
 
 
     <script>
+    x = document.getElementById('paginas').innerHTML;
+    document.getElementById(x).style.display = "grid";
+        
+
+        function Andar(y){
+            
+
+            x = document.getElementById('paginas').innerHTML;
+            x = parseInt(x);
+            console.log(x);
+            if((x + y) > 5 || (x + y) < 0){
+                console.log("Error");
+            }else{
+                x = x + y;
+                document.getElementById('paginas').innerHTML = x;
+                
+
+                document.getElementById('0').style.display = "none";
+                document.getElementById('1').style.display = "none";
+                document.getElementById('2').style.display = "none";
+                document.getElementById('3').style.display = "none";
+                document.getElementById('4').style.display = "none";
+                document.getElementById('5').style.display = "none";
+
+                document.getElementById(x).style.display = "grid";
+            }
+
+            
+
+        }
+
+
         let img = document.getElementById('img');
         let imagem = document.getElementById('imagem');
 
