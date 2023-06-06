@@ -12,4 +12,9 @@ function Login($conn, $usuario, $senha){
 
 }
 
+function novoUsuario($conn,$usuario,$senha,$privilegio,$id_fabrica){
+    $sql = "INSERT INTO usuarios (usuario, senha, privilegio, id_fabrica) VALUES ('$usuario', '$senha', '$privilegio', '$id_fabrica')";
+    $conn -> query($sql);
+}
+
 ?>

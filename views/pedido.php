@@ -37,6 +37,19 @@ $revisao = $a['revisao'];
 
 // var_dump($abas);
 
+if(empty($a["weight"])){
+    $a["weight"] = "NEED TO ADD";
+}
+if(empty($a["length"])){
+    $a["length"] = "NEED TO ADD";
+}
+if(empty($a["depth"])){
+    $a["depth"] = "NEED TO ADD";
+}
+if(empty($a["width"])){
+    $a["width"] = "NEED TO ADD";
+}
+
 include 'components/header.php';
 ?>
 <!DOCTYPE html>
@@ -127,7 +140,7 @@ include 'components/header.php';
             <div class="centro">
                 <br><br>
                 <div>
-                    <?php echo '<a href="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" target="_blank"><img  src="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" height="148" width="105"></a>'; ?>
+                    <?php echo '<a href="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" target="_blank"><img  src="../imagens/' . $a["id_fabrica"] . '/' . $a["referencia"] . '.png" height="240" width="169"></a>'; ?>
                 </div>
                 <br>
             </div>
@@ -169,19 +182,19 @@ include 'components/header.php';
                 <div style="display: grid;grid-template-columns: 25% 25% 25% 25%; gap:10px">
                     <div>
                         <label class="negrito" for="dataEnvio">Weight (g/kg/lbs)</label>
-                        <p><?= $a["weight"] ?></p>
+                        <p style="color: brown;font-weight: bold;"><?= $a["weight"] ?></p>
                     </div>
                     <div>
                         <label class="negrito" for="dataDownload">Length (cm)</label>
-                        <p><?= $a["length"] ?></p>
+                        <p style="color: brown;font-weight: bold;"><?= $a["length"] ?></p>
                     </div>
                     <div>
                         <label class="negrito" for="deadlineAmostra">Depth (cm)</label>
-                        <p><?= $a["depth"] ?></p>
+                        <p style="color: brown;font-weight: bold;"><?= $a["depth"] ?></p>
                     </div>
                     <div>
                         <label class="negrito" for="deadlineAmostra">Width (cm)</label>
-                        <p><?= $a["width"] ?></p>
+                        <p style="color: brown;font-weight: bold;"><?= $a["width"] ?></p>
                     </div>
                 </div>
             </div>
@@ -194,13 +207,13 @@ include 'components/header.php';
             <div style="height: 30px;">
                 <div style="width: 20%; display:grid; grid-template-columns: auto auto auto;margin:auto;">
                     <div style="text-align:center;">
-                        <img onclick="Andar(-1)" height="30" src="../assets/Left.png" alt="">
+                        <img style="cursor: pointer;" onclick="Andar(-1)" height="30" src="../assets/Left.png" alt="">
                     </div>
                     <div>
                         <h4 id="paginas" style="text-align: center;"><?= $revisao ?></h4>
                     </div>
                     <div style="text-align:center;">
-                        <img onclick="Andar(1)" height="30" src="../assets/Right.png" alt="">
+                        <img style="cursor: pointer;" onclick="Andar(1)" height="30" src="../assets/Right.png" alt="">
                     </div>
 
                 </div>
@@ -330,7 +343,7 @@ include 'components/header.php';
 
             x = document.getElementById('paginas').innerHTML;
             x = parseInt(x);
-            console.log(x);
+           
             if((x + y) > 5 || (x + y) < 0){
                 console.log("Error");
             }else{
@@ -348,7 +361,7 @@ include 'components/header.php';
                 document.getElementById(x).style.display = "grid";
             }
 
-            
+            console.log(x);
 
         }
 
