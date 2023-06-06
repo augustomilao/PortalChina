@@ -27,6 +27,7 @@ include '../models/marca.php';
 
 $semax = PegaMarcasEmpresa($conn,"SEMAX");
 $clio  = PegaMarcasEmpresa($conn,"CLIO");
+$zoop  = PegaMarcasEmpresa($conn,"ZOOP");
 
 ?>
 <!DOCTYPE html>
@@ -148,8 +149,12 @@ $clio  = PegaMarcasEmpresa($conn,"CLIO");
                             }
                         ?>
                         </optgroup>
-                        <optgroup label="Outros">
-                        <option value="outro">Outro</option>
+                        <optgroup label="ZOOP">
+                        <?php
+                            foreach($zoop as $z){
+                                echo '<option value="'.$z["nome"].'" >'.$z["nome"].'</option>';
+                            }
+                        ?>
                         </optgroup>
                     </select>
                     <label class="negrito" for="linkDownload">Download Link</label>

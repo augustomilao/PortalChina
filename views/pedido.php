@@ -37,16 +37,16 @@ $revisao = $a['revisao'];
 
 // var_dump($abas);
 
-if(empty($a["weight"])){
+if (empty($a["weight"])) {
     $a["weight"] = "NEED TO ADD";
 }
-if(empty($a["length"])){
+if (empty($a["length"])) {
     $a["length"] = "NEED TO ADD";
 }
-if(empty($a["depth"])){
+if (empty($a["depth"])) {
     $a["depth"] = "NEED TO ADD";
 }
-if(empty($a["width"])){
+if (empty($a["width"])) {
     $a["width"] = "NEED TO ADD";
 }
 
@@ -108,17 +108,47 @@ include 'components/header.php';
             margin: auto;
         }
 
-        .abas{
+        .abas {
             display: none;
         }
 
-        
+        .botaomenu {
+            height: 60px;
+            position: fixed;
+            top: 5em;
+            right: -1px;
+            z-index: 2;
+        }
 
+        .imgBotao {
+            animation-duration: 3s;
+            animation-name: slidein;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes slidein {
+            0% {
+               height:  100%;
+            }
+
+            50% {
+               height:  110%;
+            }
+
+            100% {
+               height:  100%;
+            }
+        }
     </style>
 
 </head>
 
 <body>
+
+    <!-- //TODO: MENU OVERFLOW -->
+    <div class="botaomenu">
+        <img class="imgBotao" src="../assets/Menu.png" alt="" height="60">
+    </div>
 
     <br>
     <div style="width:550px;margin:auto">
@@ -218,7 +248,7 @@ include 'components/header.php';
 
                 </div>
             </div>
-            
+
             <!-- // TODO: Ver como funciona as fotos -->
             <div class="fotosgrid abas" id="0">
                 <?php
@@ -234,7 +264,7 @@ include 'components/header.php';
                 ?>
             </div>
             <div class="fotosgrid abas" id="1">
-            <?php
+                <?php
                 $fotos1 = glob("../imagens/200/rev1/" . $a["referencia"] . "*.png");
 
                 if (empty($fotos1)) {
@@ -247,7 +277,7 @@ include 'components/header.php';
                 ?>
             </div>
             <div class="fotosgrid abas" id="2">
-            <?php
+                <?php
                 $fotos2 = glob("../imagens/200/rev2/" . $a["referencia"] . "*.png");
 
                 if (empty($fotos2)) {
@@ -260,7 +290,7 @@ include 'components/header.php';
                 ?>
             </div>
             <div class="fotosgrid abas" id="3">
-            <?php
+                <?php
                 $fotos3 = glob("../imagens/200/rev3/" . $a["referencia"] . "*.png");
 
                 if (empty($fotos3)) {
@@ -273,7 +303,7 @@ include 'components/header.php';
                 ?>
             </div>
             <div class="fotosgrid abas" id="4">
-            <?php
+                <?php
                 $fotos4 = glob("../imagens/200/rev4/" . $a["referencia"] . "*.png");
 
                 if (empty($fotos4)) {
@@ -286,7 +316,7 @@ include 'components/header.php';
                 ?>
             </div>
             <div class="fotosgrid abas" id="5">
-            <?php
+                <?php
                 $fotos5 = glob("../imagens/200/rev5/" . $a["referencia"] . "*.png");
 
                 if (empty($fotos5)) {
@@ -297,7 +327,7 @@ include 'components/header.php';
                     }
                 }
                 ?>
-            </div>  
+            </div>
             <br>
             <div style="margin-left:2em;margin-right:2em;">
                 <h2>Select Images to upload</h2>
@@ -334,22 +364,22 @@ include 'components/header.php';
 
 
     <script>
-    x = document.getElementById('paginas').innerHTML;
-    document.getElementById(x).style.display = "grid";
-        
+        x = document.getElementById('paginas').innerHTML;
+        document.getElementById(x).style.display = "grid";
 
-        function Andar(y){
-            
+
+        function Andar(y) {
+
 
             x = document.getElementById('paginas').innerHTML;
             x = parseInt(x);
-           
-            if((x + y) > 5 || (x + y) < 0){
+
+            if ((x + y) > 5 || (x + y) < 0) {
                 console.log("Error");
-            }else{
+            } else {
                 x = x + y;
                 document.getElementById('paginas').innerHTML = x;
-                
+
 
                 document.getElementById('0').style.display = "none";
                 document.getElementById('1').style.display = "none";

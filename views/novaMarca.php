@@ -42,6 +42,7 @@ $fabrica = mostraFabricas($conn);
                         <option value="" selected>Choose One</option>
                         <option value="CLIO">Cliostyle</option>
                         <option value="SEMAX">Semax</option>
+                        <option value="ZOOP">Zoop Toys</option>
                     </select>
                 </div>
             </div>
