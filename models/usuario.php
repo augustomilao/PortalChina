@@ -17,4 +17,11 @@ function novoUsuario($conn,$usuario,$senha,$privilegio,$id_fabrica){
     $conn -> query($sql);
 }
 
+function todosUsuarios($conn){
+    $query = "SELECT * FROM usuarios";
+    $resultado = $conn->query($query)->fetch_all(MYSQLI_ASSOC);
+
+    return $resultado;
+}
+
 ?>

@@ -1,9 +1,10 @@
 <?php
 include '../controllers/sessaoController.php';
 include_once '../models/fabrica.php';
+include_once '../models/usuario.php';
 
 $fabrica = mostraFabricas($conn);
-
+$usuarios = todosUsuarios($conn);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -18,8 +19,16 @@ $fabrica = mostraFabricas($conn);
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <style>
-        label{
+        label {
             font-weight: bold;
+        }
+
+        table,
+        td,
+        th {
+            border: 1px solid black;
+            text-align: center;
+            padding: 0.5em;
         }
     </style>
 </head>
@@ -53,13 +62,13 @@ $fabrica = mostraFabricas($conn);
                 </div>
                 <div id="fabrica">
                     <label for="fabrica">Factory</label>
-                    <select class="form-control" name="fabrica" >
+                    <select class="form-control" name="fabrica">
                         <option value="" selected>Choose One</option>
                         <?php
 
-                            foreach($fabrica as $f){
-                                echo '<option value="'.$f["id"].'">'.$f["nome"].'</option>';
-                            }
+                        foreach ($fabrica as $f) {
+                            echo '<option value="' . $f["id"] . '">' . $f["nome"] . '</option>';
+                        }
 
                         ?>
                     </select>
@@ -67,22 +76,56 @@ $fabrica = mostraFabricas($conn);
             </div>
             <br><br>
             <button class="btn btn-success">Send</button>
+
+            <hr>
+
+            <div style="text-align: center;">
+                <h4>Factories</h4>
+                <table style="width: 300px;margin:auto">
+                    <tr>
+                        <th>Factory</th>
+                        <th>Delete Link</th>
+                    </tr>
+                    <?php
+
+                    foreach ($usuarios as $f) {
+                        echo '<tr>';
+                        echo '<td>' . $f['usuario'] . '</td>';
+                        echo '<td style="background-color:brown;color:white;cursor:pointer;"><a onclick="checkDelete(' . $f["id"] . ')">Excluir</a></td>';
+                        echo '</tr>';
+                    }
+
+                    ?>
+
+                </table>
+            </div>
+
+            <br><br>
     </div>
     </form>
 
 
     <script>
-
-        function Muda(){
+        function Muda() {
             var x = document.getElementById("privilegio").value;
             var y = document.getElementById("fabrica");
-            if(x === "gerente"){
-                y.style.display = "none";                
-            }else{
+            if (x === "gerente") {
+                y.style.display = "none";
+            } else {
                 y.style.display = "block";
             }
         }
 
+        function checkDelete(a) {
+            let text = "Quer realmente excluir?"
+            if (confirm(text) == true) {
+                window.location.href = "../controller/apagarUsuario.php?id=" + a;
+            } else {
+
+            }
+
+
+        }
     </script>
 </body>
 

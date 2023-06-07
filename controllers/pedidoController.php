@@ -15,4 +15,6 @@ if (move_uploaded_file($_FILES["imagem"]["tmp_name"], $imagem_alvo)) {
     echo "Sorry, there was an error uploading your file.";
   }
 
+header('Location: ../views/dashboard.php');
+
 ?> 

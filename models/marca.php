@@ -13,6 +13,13 @@ function inserirMarca($conn, $nome, $empresa){
     $conn -> query($sql);
 }
 
+function PegaMarcas($conn){
+    $sql = "SELECT * FROM marcas";
+    $resultado = $conn -> query($sql) -> fetch_all(MYSQLI_ASSOC);
+    
+    return $resultado;
+}
+
 
 
 ?>

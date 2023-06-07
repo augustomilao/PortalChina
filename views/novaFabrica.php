@@ -18,8 +18,16 @@ $fabrica = mostraFabricas($conn);
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <style>
-        label{
+        label {
             font-weight: bold;
+        }
+
+        table,
+        td,
+        th {
+            border: 1px solid black;
+            text-align: center;
+            padding: 0.5em;
         }
     </style>
 </head>
@@ -51,20 +59,53 @@ $fabrica = mostraFabricas($conn);
     </div>
     </form>
 
+    <hr>
+    
+    <div style="text-align: center;">
+        <h4>Factories</h4>
+        <table style="width: 300px;margin:auto">
+            <tr>
+                <th>Factory</th>
+                <th>Delete Link</th>
+            </tr>
+            <?php
+
+            foreach ($fabrica as $f) {
+                echo '<tr>';
+                echo '<td>' . $f['nome'] . '</td>';
+                echo '<td style="background-color:brown;color:white;cursor:pointer;"><a onclick="checkDelete(' . $f["id"] . ')">Excluir</a></td>';
+                echo '</tr>';
+            }
+
+            ?>
+
+        </table>
+    </div>
+
+    <br><br>
 
     <script>
-
-        function Muda(){
+        function Muda() {
             var x = document.getElementById("privilegio").value;
             var y = document.getElementById("fabrica");
-            if(x === "gerente"){
+            if (x === "gerente") {
                 // y.style.display = "none";
                 document.getElementById("fabrica").readOnly = false;
-            }else{
+            } else {
                 // y.style.display = "block";
             }
         }
 
+        function checkDelete(a) {
+            let text = "Quer realmente excluir?"
+            if (confirm(text) == true) {
+                window.location.href = "../controller/apagarFabrica.php?id=" + a;
+            } else {
+
+            }
+
+
+        }
     </script>
 </body>
 
