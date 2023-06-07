@@ -301,14 +301,14 @@ include 'components/header.php';
 
                 </div>
             </div>
-
+            <br>
             <!-- // TODO: Ver como funciona as fotos -->
             <div class="fotosgrid abas" id="0">
                 <?php
                 $fotos = glob("../imagens/200/" . $a["referencia"] . "*.png");
 
                 if (empty($fotos)) {
-                    echo '<img src="../assets/placeholder100.png">';
+                    echo '<img src="../assets/placeholder100.png" width=150 height=150>';
                 } else {
                     foreach ($fotos as $f) {
                         echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=150 height=150 ></a>';
@@ -321,7 +321,7 @@ include 'components/header.php';
                 $fotos1 = glob("../imagens/200/rev1/" . $a["referencia"] . "*.png");
 
                 if (empty($fotos1)) {
-                    echo '<img src="../assets/placeholder100.png">';
+                    echo '<img src="../assets/placeholder100.png" width=150 height=150>';
                 } else {
                     foreach ($fotos1 as $f) {
                         echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=150 height=150 ></a>';
@@ -334,7 +334,7 @@ include 'components/header.php';
                 $fotos2 = glob("../imagens/200/rev2/" . $a["referencia"] . "*.png");
 
                 if (empty($fotos2)) {
-                    echo '<img src="../assets/placeholder100.png">';
+                    echo '<img src="../assets/placeholder100.png" width=150 height=150>';
                 } else {
                     foreach ($fotos2 as $f) {
                         echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=150 height=150 ></a>';
@@ -347,7 +347,7 @@ include 'components/header.php';
                 $fotos3 = glob("../imagens/200/rev3/" . $a["referencia"] . "*.png");
 
                 if (empty($fotos3)) {
-                    echo '<img src="../assets/placeholder100.png">';
+                    echo '<img src="../assets/placeholder100.png" width=150 height=150>';
                 } else {
                     foreach ($fotos3 as $f) {
                         echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=350 height=150 ></a>';
@@ -360,7 +360,7 @@ include 'components/header.php';
                 $fotos4 = glob("../imagens/200/rev4/" . $a["referencia"] . "*.png");
 
                 if (empty($fotos4)) {
-                    echo '<img src="../assets/placeholder100.png">';
+                    echo '<img src="../assets/placeholder100.png" width=150 height=150>';
                 } else {
                     foreach ($fotos4 as $f) {
                         echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=150 height=150 ></a>';
@@ -373,7 +373,7 @@ include 'components/header.php';
                 $fotos5 = glob("../imagens/200/rev5/" . $a["referencia"] . "*.png");
 
                 if (empty($fotos5)) {
-                    echo '<img src="../assets/placeholder100.png">';
+                    echo '<img src="../assets/placeholder100.png" width=150 height=150>';
                 } else {
                     foreach ($fotos5 as $f) {
                         echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=150 height=150 ></a>';
