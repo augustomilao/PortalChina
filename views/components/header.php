@@ -17,7 +17,7 @@
 
         .divGrid {
             display: grid;
-            grid-template-columns: 50% 50%;
+            grid-template-columns: 33% 33% 33%;
             text-align: center;
         }
 
@@ -46,6 +46,11 @@
             color: black;
             text-decoration-line: none
         }
+
+        .text2{
+            color: white;
+            margin-top: 0.1em;
+        }
     </style>
 
 </head>
@@ -64,19 +69,24 @@
                 echo '<a class="link" href="dashboard.php"> <p class="text">Submission Search</p></a>';
                 echo '</div>';
             } else {
-                 echo '<div class="divGrid">';
-                 echo '<div class="pointer">';
-                 echo '    <a class="link" href="novoPedido.php">';
-                 echo '        <p class="text">New Submission</p>';
-                 echo '    </a>';
-                 echo '</div>';
-                 echo '<div class="pointer">';
-                 echo '    <a class="link" href="dashboard.php">';
-                 echo '        <p class="text">Submission Search</p>';
-                 echo '    </a>';
-                 echo '</div>';
-                 echo '</div>';
-            }?>
+                echo '<div class="divGrid">';
+                echo '<div class="pointer">';
+                echo '    <a class="link" href="novoPedido.php">';
+                echo '        <p class="text">New Submission</p>';
+                echo '    </a>';
+                echo '</div>';
+                echo '<div class="pointer">';
+                echo '    <a class="link" href="dashboard.php">';
+                echo '        <p class="text">Submission Search</p>';
+                echo '    </a>';
+                echo '</div>';
+                echo '<div class="pointer">';
+                echo '    <a>';
+                echo '        <p onclick=ToogleDIV() class="text" >New Register</p>';
+                echo '    </a>';
+                echo '</div>';
+                echo '</div>';
+            } ?>
 
             <div class="centro">
                 <a class="link" href="../controllers/logoutController.php">
@@ -85,8 +95,31 @@
             </div>
         </div>
     </header>
+    <div id="drop" style="display: none;">
+            <div style="display: grid;grid-template-columns: auto auto auto;background-color:#3E2080;color:white;height:2em;padding:0.2em 0; border-top:1px solid black">
+                <div style="text-align: center;">
+                   <a class="link" href="novaMarca.php"><p class="text2">New Brand</p></a>
+                </div>
+                <div style="text-align: center;">
+                    <a class="link" href="novaFabrica.php"><p class="text2">New Factory</p></a>
+                </div>
+                <div style="text-align: center;">
+                    <a class="link" href="novoUsuario.php"><p class="text2">New User</p></a>
+                </div>
+            </div>
+    </div>
 
 
+    <script>
+        function ToogleDIV(){
+            var a = document.getElementById('drop').style.display;
+            if(a == "none"){
+                document.getElementById('drop').style.display = "block";
+            }else{
+                document.getElementById('drop').style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>

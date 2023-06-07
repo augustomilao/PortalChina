@@ -23,7 +23,7 @@ function buscaLink($conn, $id){
 }
 
 function inicioPedido($conn, $fabrica, $referencia, $marca, $linkDownload, $dataEnvio, $dataDownload, $deadlineAmostra){
-    $sql = "INSERT INTO pedidos (id_fabrica, referencia, marca, linkDownload, dataEnvio, dataDownload, deadlineAmostra) VALUES ('$fabrica', '$referencia', '$marca', '$linkDownload', '$dataEnvio', '$dataDownload', '$deadlineAmostra')";
+    $sql = "INSERT INTO pedidos (id_fabrica, referencia, marca, linkDownload, dataEnvio, dataDownload, deadlineAmostra, revisao) VALUES ('$fabrica', '$referencia', '$marca', '$linkDownload', '$dataEnvio', '$dataDownload', '$deadlineAmostra' , 'rev0')";
     $resultado = $conn -> query($sql);
 }
 
@@ -58,6 +58,21 @@ function confirmaDownload($conn, $id){
 
 function iniciaProducao($conn, $id){
     $sql = "UPDATE pedidos SET statusAmostra = 1 WHERE id = '$id' ";
+    $resultado = $conn -> query($sql);
+}
+
+function inserirMedidas($conn, $weight, $w, $l, $d, $id){
+    $sql = "UPDATE pedidos SET weight = '$weight', length = '$l', depth = '$d', width = '$w' WHERE id = '$id' ";
+    $resultado = $conn -> query($sql);
+}
+
+function HouveMudanca($conn, $id){
+    $sql = "UPDATE pedidos SET mudanca = 1 WHERE id = '$id'";
+    $resultado = $conn -> query($sql);
+}
+
+function FoiVisto($conn, $id){
+    $sql = "UPDATE pedidos SET mudanca = 0 WHERE id = '$id'";
     $resultado = $conn -> query($sql);
 }
 

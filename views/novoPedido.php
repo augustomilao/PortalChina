@@ -23,6 +23,12 @@ $up = mostraFabricasPorEmpresa($conn, 'UP');
 $luminus = mostraFabricasPorEmpresa($conn, 'LUMINUS');
 
 
+include '../models/marca.php';
+
+$semax = PegaMarcasEmpresa($conn,"SEMAX");
+$clio  = PegaMarcasEmpresa($conn,"CLIO");
+$zoop  = PegaMarcasEmpresa($conn,"ZOOP");
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -125,7 +131,32 @@ $luminus = mostraFabricasPorEmpresa($conn, 'LUMINUS');
                     <label class="negrito" for="referencia">Reference</label>
                     <input required class="form-control" type="text" id="referencia" name="referencia" value="<?= $pedido ?>" readonly>
                     <label class="negrito" for="marca">Brand</label>
-                    <input required class="form-control" type="text" name="marca">
+                    <!-- <input required class="form-control" type="text" name="marca"> -->
+                    <!-- //TODO: SELECT -->
+                    <select required class="form-control" type="text" name="marca" required>
+                        <option value="" selected>Choose One</option>
+                        <optgroup label="CLIO">
+                        <?php
+                            foreach($clio as $c){
+                                echo '<option value="'.$c["nome"].'" >'.$c["nome"].'</option>';
+                            }
+                        ?>
+                        </optgroup>
+                        <optgroup label="SEMAX">
+                        <?php
+                            foreach($semax as $s){
+                                echo '<option value="'.$s["nome"].'" >'.$s["nome"].'</option>';
+                            }
+                        ?>
+                        </optgroup>
+                        <optgroup label="ZOOP">
+                        <?php
+                            foreach($zoop as $z){
+                                echo '<option value="'.$z["nome"].'" >'.$z["nome"].'</option>';
+                            }
+                        ?>
+                        </optgroup>
+                    </select>
                     <label class="negrito" for="linkDownload">Download Link</label>
                     <input required class="form-control" type="text" name="linkDownload">
                     <div style="display: grid;grid-template-columns: auto auto; gap:10px">

@@ -7,15 +7,19 @@ verificaSessao();
 include '../models/pedidos.php';
 
 // 80 = Sinal para ver todas
-if($_SESSION['fabrica']!= 80){
+if ($_SESSION['fabrica'] != 80) {
     $pedidos = buscaTodosPorFabrica($conn, $_SESSION['fabrica']);
-}else{
+} else {
     $pedidos = buscaTodosPedidos($conn);
 }
 
 $hoje = time();
 $atrasados = [];
 // var_dump($_SESSION);
+
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -33,10 +37,11 @@ $atrasados = [];
 
 
     <style>
-        p{
+        p {
             padding: 0;
             margin: 0;
         }
+
         .card {
             border: 3px solid black;
             border-radius: 10px;
@@ -52,40 +57,48 @@ $atrasados = [];
         .inicio h4 {
             margin: 10px 1em;
         }
-        .grid5{
+
+        .grid5 {
             display: grid;
             grid-template-columns: 5% 20% 20% 20% 20% 15%;
         }
-        .campo{
+
+        .campo {
             text-align: center;
             height: 30px;
         }
-        .notacao{
+
+        .notacao {
             font-weight: bold;
         }
-        .linhas{
+
+        .linhas {
             height: 30px;
         }
 
-        .link{
+        .link {
             color: black;
         }
-        .link:hover{
+
+        .link:hover {
             color: black;
         }
-        .grid3{
+
+        .grid3 {
             display: grid;
             grid-template-columns: auto auto auto;
             gap: 1em;
             margin: auto;
             width: 30%;
         }
-        .escolhas{
+
+        .escolhas {
             border: 1px solid black;
             border-radius: 10px;
             cursor: pointer;
         }
-        .lab{
+
+        .lab {
             height: 30px;
             padding-top: 3px;
         }
@@ -100,144 +113,136 @@ $atrasados = [];
     <?php include 'components/header.php' ?>
 
     <br>
-        <div class="grid3">
-            <img class="escolhas" width="60" src="../assets/atrasado.png" alt="">
-            <img class="escolhas" width="60" src="../assets/normal.png" alt="">
-            <img class="escolhas" width="60" src="../assets/finalizado.png" alt="">
-        </div>
+    <div class="container">
+            <div style="display: grid;grid-template-columns: 80% 20%;gap: 20px;">
+                <div style="text-align:center">
+                    <label for="Filtro">Filters</label>
+                    <select name="Filtro" id="filtro" class="form-control">
+                        <option value="1" selected>Todos</option>
+                        <option value="2">Com Mudanças</option>
+                        <option value="3">Atrasados</option>
+                        <option value="4">Aprovados</option>
+                        <option value="5">Por Marca</option>
+                        <option value="6">Por Fábrica</option>
+                    </select>
+                </div>
+                <div style="text-align:center">
+                <label for="Filtro">Order</label>
+                    <select name="ordem" id="ordem" class="form-control">
+                        <option value="ASC" selected>ASC</option>
+                        <option value="DESC">DESC</option>
+                    </select>
+                </div>
+            </div><br>
+            <button class="btn btn-primary" onclick="loadDoc()">Apply Filter</button>
+    </div>
     <br>
-    <div class="card">
-        
-        <div class="inicio">
+    <div class="card" id="prefiltro">
+
+        <div class="inicio" style="border-bottom:1px solid black; padding:0 ; margin:0">
             <h4>Submissions</h4>
         </div>
         <div>
-        <hr style="border-top:1px solid black; padding:0 ; margin:0">
+
+            <div class="grid5">
+                <div class="campo">
+                    <p class="notacao">Image</p>
+                </div>
+                <div class="campo">
+                    <p class="notacao">Factory</p>
+                </div>
+                <div class="campo">
+                    <p class="notacao">Reference</p>
+                </div>
+                <div class="campo">
+                    <p class="notacao">Brand</p>
+                </div>
+                <div class="campo">
+                    <p class="notacao">Link Download</p>
+                </div>
+                <div class="campo">
+                    <p class="notacao">Deadline</p>
+                </div>
+            </div>
+            <hr style="border-top:1px solid black; padding:0 ; margin:0">
             <?php
-            if(empty($pedidos)){
+            if (empty($pedidos)) {
                 echo "<h3 style='margin:1em'>Oops. No submissions yet!</h3>";
-            }else{
-            foreach($pedidos as $p){
+            } else {
+                foreach ($pedidos as $p) {
 
-                $deadline = $p['deadlineAmostra'];
-                $deadline = strtotime($deadline);
-                $tempo = (($deadline - $hoje)/86400);
-                $tempo = intval($tempo) + 1;
+                    $deadline = $p['deadlineAmostra'];
+                    $deadline = strtotime($deadline);
+                    $tempo = (($deadline - $hoje) / 86400);
+                    $tempo = intval($tempo) + 1;
 
-                // TODO: Criar uma ideia de cores
-                if($tempo <= 12 && $tempo > 8){
-                    $cor = "yellow";
-                    array_push($atrasados, $p);
-                }elseif($tempo <= 8){
-                    $cor = "red";
-                    array_push($atrasados, $p);
-                }else{
-                    $cor = "green";
-                    
-                }
+                    // TODO: Criar uma ideia de cores
+                    if ($tempo <= 12 && $tempo > 8) {
+                        $cor = "yellow";
+                        array_push($atrasados, $p);
+                    } elseif ($tempo <= 8) {
+                        $cor = "red";
+                        array_push($atrasados, $p);
+                    } else {
+                        $cor = "green";
+                    }
 
 
-                echo '<div class="linhas">';
+                    echo '<div class="linhas">';
                     echo '<div class="grid5">';
-                        echo '<div class="campo">';
-                            echo '<img src="../imagens/'.$p["id_fabrica"].'/'.$p["referencia"].'.png" height=20>';
-                        echo '</div>';
-                        echo '<div class="campo">';
-                            echo '<p class="lab">'.$p["nome"].'</p>';
-                        echo '</div>';
-                        echo '<div class="campo">';
-                            echo '<form action="pedido.php" method="POST" style="height:30px">';
-                            echo '<input type="hidden" name="id" value="'.$p["id"].'">';
-                            echo '<button class="btn lab" style="height:30px;padding:0;margin:0">'.$p["referencia"].'</button>';
-                            echo '</form>';
-                            echo '</div>';
-                        echo '<div class="campo">';
-                            echo '<p class="lab">'.$p["marca"].'</p>';
-                        echo '</div>';
-                        echo '<div class="campo">';
-                            echo '<a class="link" target="_blank" href="../controllers/downloadController.php?i='.$p["id"].'"><p class="lab">'.$p["linkDownload"].'</p><a/>';
-                        echo '</div>';
-                        echo '<div class="campo" style="background-color:'.$cor.';color:black">';
-                            echo '<p class="lab">'.$p["deadlineAmostra"].'</p>';
-                        echo '</div>';
+                    echo '<div class="campo">';
+                    echo '<a href="../imagens/' . $p["id_fabrica"] . '/' . $p["referencia"] . '.png"><img src="../imagens/' . $p["id_fabrica"] . '/' . $p["referencia"] . '.png" height=20 width=15></a>';
                     echo '</div>';
-                echo '</div>';
-                echo '<hr style="border-top:1px solid black; padding:0 ; margin:0">';
+                    echo '<div class="campo">';
+                    echo '<p class="lab">' . $p["nome"] . '</p>';
+                    echo '</div>';
+                    echo '<div class="campo">';
+                    echo '<form action="pedido.php" method="POST" style="height:30px">';
+                    echo '<input type="hidden" name="id" value="' . $p["id"] . '">';
+                    echo '<button class="btn lab" style="height:30px;padding:0;margin:0">' . $p["referencia"] . '</button>';
+                    echo '</form>';
+                    echo '</div>';
+                    echo '<div class="campo">';
+                    echo '<p class="lab">' . $p["marca"] . '</p>';
+                    echo '</div>';
+                    echo '<div class="campo">';
+                    echo '<a class="link" target="_blank" href="../controllers/downloadController.php?i=' . $p["id"] . '"><p class="lab">' . $p["linkDownload"] . '</p><a/>';
+                    echo '</div>';
+                    echo '<div class="campo" style="background-color:' . $cor . ';color:black">';
+                    echo '<p class="lab">' . $p["deadlineAmostra"] . '</p>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '<hr style="border-top:1px solid black; padding:0 ; margin:0">';
+                }
             }
-        }
             ?>
         </div>
+    </div>
+
+
+    <div id="resposta">
+
     </div>
 
     <br><br>
-    
-    <div class="card">
-    <a></a>
-        <div class="inicio">
-            <h4> Only the close to deadline submissions</h4>
-        </div>
-        <div>
-            <br>
-            <?php
 
-            foreach($atrasados as $c){
-
-                $deadline = $c['deadlineAmostra'];
-                $deadline = strtotime($deadline);
-                $tempo = (($deadline - $hoje)/86400);
-                $tempo = intval($tempo) + 1;
-
-                // TODO: Criar uma ideia de cores
-                if($tempo <= 12 && $tempo > 8){
-                    $cor = "yellow";
-                    array_push($atrasados, $c);
-                }elseif($tempo <= 8){
-                    $cor = "red";
-                    array_push($atrasados, $c);
-                }else{
-                    $cor = "green";
-                    
-                }
-
-
-                echo '<div>';
-                    echo '<div class="grid5">';
-                        echo '<div class="campo">';
-                            echo '<p class="notacao">Image</p>';
-                            echo '<img src="../imagens/'.$c["id_fabrica"].'/'.$c["referencia"].'.png" width=50>';
-                        echo '</div>';
-                        echo '<div class="campo">';
-                            echo '<p class="notacao">Factory</p>';
-                            echo '<p class="lab">'.$c["nome"].'</p>';
-                        echo '</div>';
-                        echo '<div class="campo">';
-                            echo '<p class="notacao">Reference</p>';
-                            echo '<form action="pedido.php" method="POST">';
-                            echo '<input type="hidden" name="id" value="'.$c["id"].'">';
-                            echo '<button class="btn lab">'.$c["referencia"].'</button>';
-                            echo '</form>';
-                            echo '</div>';
-                        echo '<div class="campo">';
-                            echo '<p class="notacao">Brand</p>';
-                            echo '<p class="lab">'.$c["marca"].'</p>';
-                        echo '</div>';
-                        echo '<div class="campo">';
-                            echo '<p class="notacao">Link Download</p>';
-                            echo '<a class="link" target="_blank" href="../controllers/downloadController.php?i='.$c["id"].'"><p class="lab">'.$c["linkDownload"].'</p><a/>';
-                        echo '</div>';
-                        echo '<div class="campo" style="background-color:'.$cor.';color:black">';
-                            echo '<p class="notacao">Deadline</p>';
-                            echo '<p class="lab">'.$c["deadlineAmostra"].'</p>';
-                        echo '</div>';
-                    echo '</div>';
-                echo '</div>';
-                echo '<hr>';
+    <script>
+        function loadDoc() {
+            var x = document.getElementById('filtro').value;
+            var y = document.getElementById('ordem').value;
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("prefiltro").style.display = "none";
+                document.getElementById("resposta").innerHTML = this.responseText;
             }
+            xhttp.open("GET", "components/busca.php?filtro="+ x +"&ordem=" + y, true);
+            xhttp.send();
+            
+            // console.log(x , y)
+        }
+    </script>
 
-            ?>
-        </div>
-    </div>
-    <br><br>    
 
 </body>
 
