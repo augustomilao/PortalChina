@@ -1,6 +1,7 @@
 <?php
 $i = 0;
 // var_dump($_POST);
+include_once '../models/pedidos.php';
 
 // echo '<br><br><br>';
 
@@ -63,6 +64,7 @@ while($i < $contadorNovo){
     $i = $i + 1;
 }
 
+HouveMudanca($conn, $_POST['id']);
 // TODO: MUDAR AQUI A HEADER LOCATION
 
 

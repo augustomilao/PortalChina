@@ -61,4 +61,19 @@ function iniciaProducao($conn, $id){
     $resultado = $conn -> query($sql);
 }
 
+function inserirMedidas($conn, $weight, $w, $l, $d, $id){
+    $sql = "UPDATE pedidos SET weight = '$weight', length = '$l', depth = '$d', width = '$w' WHERE id = '$id' ";
+    $resultado = $conn -> query($sql);
+}
+
+function HouveMudanca($conn, $id){
+    $sql = "UPDATE pedidos SET mudanca = 1 WHERE id = '$id'";
+    $resultado = $conn -> query($sql);
+}
+
+function FoiVisto($conn, $id){
+    $sql = "UPDATE pedidos SET mudanca = 0 WHERE id = '$id'";
+    $resultado = $conn -> query($sql);
+}
+
 ?>

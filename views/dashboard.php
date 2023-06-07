@@ -17,6 +17,10 @@ $hoje = time();
 $atrasados = [];
 // var_dump($_SESSION);
 
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -98,6 +102,7 @@ $atrasados = [];
             height: 30px;
             padding-top: 3px;
         }
+
     </style>
 
 
@@ -114,7 +119,31 @@ $atrasados = [];
         <img class="escolhas" width="60" src="../assets/finalizado.png" alt="">
     </div>
     <br>
-    <div class="card">
+    <div class="container">
+            <div style="display: grid;grid-template-columns: 80% 20%;gap: 20px;">
+                <div style="text-align:center">
+                    <label for="Filtro">Filters</label>
+                    <select name="Filtro" id="filtro" class="form-control">
+                        <option value="1" selected>Todos</option>
+                        <option value="2">Com Mudanças</option>
+                        <option value="3">Atrasados</option>
+                        <option value="4">Aprovados</option>
+                        <option value="5">Por Marca</option>
+                        <option value="6">Por Fábrica</option>
+                    </select>
+                </div>
+                <div style="text-align:center">
+                <label for="Filtro">Order</label>
+                    <select name="ordem" id="ordem" class="form-control">
+                        <option value="ASC" selected>ASC</option>
+                        <option value="DESC">DESC</option>
+                    </select>
+                </div>
+            </div><br>
+            <button class="btn btn-primary" onclick="loadDoc()">Apply Filter</button>
+    </div>
+    <br>
+    <div class="card" id="prefiltro">
 
         <div class="inicio" style="border-bottom:1px solid black; padding:0 ; margin:0">
             <h4>Submissions</h4>
@@ -197,7 +226,28 @@ $atrasados = [];
         </div>
     </div>
 
+
+    <div id="resposta">
+
+    </div>
+
     <br><br>
+
+    <script>
+        function loadDoc() {
+            var x = document.getElementById('filtro').value;
+            var y = document.getElementById('ordem').value;
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("prefiltro").style.display = "none";
+                document.getElementById("resposta").innerHTML = this.responseText;
+            }
+            xhttp.open("GET", "components/busca.php?filtro="+ x +"&ordem=" + y, true);
+            xhttp.send();
+            
+            // console.log(x , y)
+        }
+    </script>
 
 
 </body>

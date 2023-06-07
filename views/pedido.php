@@ -121,22 +121,41 @@ include 'components/header.php';
         }
 
         .imgBotao {
+
+            cursor: pointer;
+
             animation-duration: 3s;
             animation-name: slidein;
             animation-iteration-count: infinite;
         }
 
+        .displaymenu {
+            justify-content: center;
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 10px;
+        }
+
+        .cardmenu {
+            padding-top: 0.5em;
+            text-align: center;
+            border: solid 2px black;
+            border-radius: 10px;
+            width: 200px;
+            height: 50px;
+        }
+
         @keyframes slidein {
             0% {
-               height:  100%;
+                height: 100%;
             }
 
             50% {
-               height:  110%;
+                height: 105%;
             }
 
             100% {
-               height:  100%;
+                height: 100%;
             }
         }
     </style>
@@ -149,6 +168,19 @@ include 'components/header.php';
     <div class="botaomenu">
         <img class="imgBotao" src="../assets/Menu.png" alt="" height="60">
     </div>
+
+    <!-- <div class="menuEscondido">
+        <div class="displaymenu">
+            <div class="cardmenu">
+                <p>Adicionar Medidas</p>
+            </div>
+            <div class="cardmenu">
+                <p>Adicionar Fotos</p>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- //TODO: MENU OVERFLOW -->
 
     <br>
     <div style="width:550px;margin:auto">
@@ -226,6 +258,27 @@ include 'components/header.php';
                         <label class="negrito" for="deadlineAmostra">Width (cm)</label>
                         <p style="color: brown;font-weight: bold;"><?= $a["width"] ?></p>
                     </div>
+                </div>
+                <div id="medidas" style="display: none;">
+                    <form action="../controllers/medidasController.php" method="post">
+                        <input type="hidden" name="id" value="<?= $pedido ?>">
+                        <label for="weight">Weight</label>
+                        <input type="text" name="weight">
+
+                        <label for="lenght">Lenght</label>
+                        <input type="text" name="lenght">
+
+                        <label for="depth">Depth</label>
+                        <input type="text" name="depth">
+
+                        <label for="width">Width</label>
+                        <input type="text" name="width">
+                        <br><br>
+                        <button class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+                <div style="text-align: right;">
+                    <button onClick="ShowMeasures()" class="btn btn-success">Add Measurements</button>
                 </div>
             </div>
         </div>
@@ -332,6 +385,7 @@ include 'components/header.php';
             <div style="margin-left:2em;margin-right:2em;">
                 <h2>Select Images to upload</h2>
                 <form action="../controllers/fotosController.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<?= $pedido ?>">
                     <input type="hidden" name="referencia" value="<?= $a["referencia"] ?>">
                     <input type="hidden" name="revisao" value="<?= $a["revisao"] ?>">
                     <input type="file" id="imagem" name="imagem[]" multiple>
@@ -402,6 +456,16 @@ include 'components/header.php';
         imagem.onchange = (e) => {
             if (imagem.files[0])
                 img.src = URL.createObjectURL(imagem.files[0]);
+        }
+
+        function ShowMeasures(){
+            var i = document.getElementById('medidas').style.display;
+
+            if(i == "block"){
+                document.getElementById('medidas').style.display = "none";
+            }else{
+                document.getElementById('medidas').style.display = "block";
+            }
         }
     </script>
 </body>
