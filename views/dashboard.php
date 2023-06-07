@@ -113,12 +113,6 @@ $atrasados = [];
     <?php include 'components/header.php' ?>
 
     <br>
-    <div class="grid3">
-        <img class="escolhas" width="60" src="../assets/atrasado.png" alt="">
-        <img class="escolhas" width="60" src="../assets/normal.png" alt="">
-        <img class="escolhas" width="60" src="../assets/finalizado.png" alt="">
-    </div>
-    <br>
     <div class="container">
             <div style="display: grid;grid-template-columns: 80% 20%;gap: 20px;">
                 <div style="text-align:center">
