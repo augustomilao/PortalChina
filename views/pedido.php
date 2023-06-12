@@ -169,16 +169,46 @@ include 'components/header.php';
         <img class="imgBotao" src="../assets/Menu.png" alt="" height="60">
     </div>
 
-    <!-- <div class="menuEscondido">
-        <div class="displaymenu">
-            <div class="cardmenu">
-                <p>Adicionar Medidas</p>
+    <div class="menuEscondido">
+        <br>
+        <div style="width: 600px; margin:auto;border: 1px solid black;border-radius: 12px;">
+            <div class="displaymenu"  style="padding:2em 0 0 0;">
+                <div class="cardmenu">
+                    <p style="padding: 0;margin:0;margin-top:2px">Retirar Visualização</p>
+                </div>
+                <div class="cardmenu">
+                    <p style="padding: 0;margin:0;margin-top:2px">Aceitar / Negar</p>
+                </div>
+                <div class="cardmenu">
+                    <p style="padding: 0;margin:0;margin-top:2px">Pedir revisão</p>
+                </div>
+                <div class="cardmenu">
+                    <p style="padding: 0;margin:0;margin-top:2px">Adiar</p>
+                </div>
             </div>
-            <div class="cardmenu">
-                <p>Adicionar Fotos</p>
+            <hr>
+            <div style="text-align: center;">
+                <!--  -->
+                <button class="btn btn-danger">Remove Alert</button>
+                <br><br>
             </div>
+            <div style="text-align: center;">
+                <!--  -->
+                <button class="btn btn-success">Accept</button>
+                <button class="btn btn-danger">Deny</button>
+                <br><br>
+            </div>
+            <div style="text-align: center;">
+                <!--  -->
+                <button class="btn btn-success">Create Revision</button>
+            </div>
+            <div style="text-align: center;">
+                <!--  -->
+                <button class="btn btn-success">Delay the deadline</button>
+            </div>
+            
         </div>
-    </div> -->
+    </div>
 
     <!-- //TODO: MENU OVERFLOW -->
 
@@ -239,6 +269,17 @@ include 'components/header.php';
                         <label class="negrito" for="deadlineAmostra">Sample Deadline</label>
                         <p><?= $a["deadlineAmostra"] ?></p>
                     </div>
+                </div>
+                <div id="delaydiv" style="display: none;">
+                    <form action="../controllers/delayController.php" method="post">
+                        <input type="hidden" name="id" value="<?= $pedido ?>">
+                        <input type="date" name="new_date" required>
+                        <br><br>
+                        <button class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+                <div style="text-align: right;">
+                    <button onClick="ShowDelay()" class="btn btn-success">Ask to delay deadline</button>
                 </div>
                 <hr>
                 <div style="display: grid;grid-template-columns: 25% 25% 25% 25%; gap:10px">
@@ -458,13 +499,24 @@ include 'components/header.php';
                 img.src = URL.createObjectURL(imagem.files[0]);
         }
 
-        function ShowMeasures(){
+        function ShowMeasures() {
             var i = document.getElementById('medidas').style.display;
 
-            if(i == "block"){
+            if (i == "block") {
                 document.getElementById('medidas').style.display = "none";
-            }else{
+            } else {
                 document.getElementById('medidas').style.display = "block";
+            }
+        }
+
+
+        function ShowDelay() {
+            var i = document.getElementById('delaydiv').style.display;
+
+            if (i == "block") {
+                document.getElementById('delaydiv').style.display = "none";
+            } else {
+                document.getElementById('delaydiv').style.display = "block";
             }
         }
     </script>
