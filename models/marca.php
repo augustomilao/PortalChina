@@ -20,6 +20,11 @@ function PegaMarcas($conn){
     return $resultado;
 }
 
+function apagaMarca($conn, $id){
+    $sql = "DELETE FROM marcas WHERE id_marcas = '$id'";
+    $resultado = $conn -> query($sql);
+}
+
 
 
 ?>

@@ -119,7 +119,7 @@ $usuarios = todosUsuarios($conn);
         function checkDelete(a) {
             let text = "Quer realmente excluir?"
             if (confirm(text) == true) {
-                window.location.href = "../controller/apagarUsuario.php?id=" + a;
+                window.location.href = "../controllers/apagarUsuario.php?id=" + a;
             } else {
 
             }

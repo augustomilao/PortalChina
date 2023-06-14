@@ -76,4 +76,16 @@ function FoiVisto($conn, $id){
     $resultado = $conn -> query($sql);
 }
 
+function buscaRevisao($conn, $id){
+    $sql = "SELECT revisao FROM pedidos WHERE id = '$id' ";
+    $resultado = $conn -> query($sql) -> fetch_assoc();
+    return $resultado;
+}
+
+function alteraRevisao($conn, $id, $rev){
+    $sql = "UPDATE pedidos SET revisao = '$rev' WHERE id = '$id' ";
+    $resultado = $conn -> query($sql);
+    return $resultado;
+}
+
 ?>

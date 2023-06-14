@@ -117,6 +117,14 @@ include 'components/header.php';
             position: fixed;
             top: 5em;
             right: -1px;
+            z-index: 3;
+        }
+
+        .painel {
+            height: 60px;
+            position: fixed;
+            top: 5em;
+            right: -1px;
             z-index: 2;
         }
 
@@ -145,6 +153,15 @@ include 'components/header.php';
             height: 50px;
         }
 
+        .none{
+            display: none;
+        }
+
+        .cardmenu:hover{
+            cursor: pointer;
+        }
+
+
         @keyframes slidein {
             0% {
                 height: 100%;
@@ -166,47 +183,61 @@ include 'components/header.php';
 
     <!-- //TODO: MENU OVERFLOW -->
     <div class="botaomenu">
-        <img class="imgBotao" src="../assets/Menu.png" alt="" height="60">
+        <img class="imgBotao" src="../assets/Menu.png" alt="" height="60" onclick="Painel()">
     </div>
 
-    <div class="menuEscondido">
+    <div class="menuEscondido none" id="menuEscondido">
         <br>
         <div style="width: 600px; margin:auto;border: 1px solid black;border-radius: 12px;">
-            <div class="displaymenu"  style="padding:2em 0 0 0;">
-                <div class="cardmenu">
+            <div class="displaymenu" style="padding:2em 0 0 0;">
+                <div class="cardmenu" onclick="Divisorias('div1')">
                     <p style="padding: 0;margin:0;margin-top:2px">Retirar Visualização</p>
                 </div>
-                <div class="cardmenu">
+                <div class="cardmenu" onclick="Divisorias('div2')">
                     <p style="padding: 0;margin:0;margin-top:2px">Aceitar / Negar</p>
                 </div>
-                <div class="cardmenu">
+                <div class="cardmenu" onclick="Divisorias('div3')">
                     <p style="padding: 0;margin:0;margin-top:2px">Pedir revisão</p>
                 </div>
-                <div class="cardmenu">
+                <div class="cardmenu" onclick="Divisorias('div4')">
                     <p style="padding: 0;margin:0;margin-top:2px">Adiar</p>
                 </div>
             </div>
             <hr>
-            <div style="text-align: center;">
+            <div style="text-align: center;" id="div1" class="none">
                 <!--  -->
-                <button class="btn btn-danger">Remove Alert</button>
+                
+                    <input type="hidden" name="pedido" value="<?= $pedido ?>">
+                    <button class="btn btn-danger">Remove Alert</button>
+                
                 <br><br>
             </div>
-            <div style="text-align: center;">
+            <div style="text-align: center;" id="div2" class="none">
                 <!--  -->
                 <button class="btn btn-success">Accept</button>
                 <button class="btn btn-danger">Deny</button>
                 <br><br>
             </div>
-            <div style="text-align: center;">
+            <div style="text-align: center;" id="div3" class="none">
                 <!--  -->
-                <button class="btn btn-success">Create Revision</button>
+                <form action="../controllers/revisao.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="pedido" value="<?= $pedido ?>">
+                <input type="file" name="revisao">
+                <br><br>
+                <input type="date" name="nova_deadline">
+                <br><br>
+                <button class="btn btn-primary">Create Revision</button>
+                <br><br>
+                </form>
             </div>
-            <div style="text-align: center;">
+            <div style="text-align: center;" id="div4" class="none">
                 <!--  -->
-                <button class="btn btn-success">Delay the deadline</button>
+                <input type="date" name="nova_deadline">
+                <br><br>
+                <button class="btn btn-primary">Delay the deadline</button>
+                <br><br>
             </div>
-            
+
         </div>
     </div>
 
@@ -517,6 +548,29 @@ include 'components/header.php';
                 document.getElementById('delaydiv').style.display = "none";
             } else {
                 document.getElementById('delaydiv').style.display = "block";
+            }
+        }
+
+        function Divisorias(a) {
+
+            document.getElementById('div1').style.display = "none";
+            document.getElementById('div2').style.display = "none";
+            document.getElementById('div3').style.display = "none";
+            document.getElementById('div4').style.display = "none";
+
+
+            document.getElementById(a).style.display = "block";
+
+
+        }
+
+        function Painel() {
+            var i = document.getElementById('menuEscondido').style.display;
+
+            if (i == "block") {
+                document.getElementById('menuEscondido').style.display = "none";
+            } else {
+                document.getElementById('menuEscondido').style.display = "block";
             }
         }
     </script>

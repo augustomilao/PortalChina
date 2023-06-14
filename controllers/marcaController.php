@@ -7,6 +7,6 @@ $empresa = $_POST['empresa'];
 
 inserirMarca($conn, $marca, $empresa);
 
-header('Location: ../views/dashboard.php');
+header('Location: ../views/novaMarca.php');
 
 ?>

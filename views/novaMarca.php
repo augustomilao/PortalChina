@@ -100,7 +100,7 @@ $marcas = PegaMarcas($conn);
         function checkDelete(a) {
             let text = "Quer realmente excluir?"
             if (confirm(text) == true) {
-                window.location.href = "../controller/apagarMarca.php?id=" + a;
+                window.location.href = "../controllers/apagarMarca.php?id=" + a;
             } else {
 
             }

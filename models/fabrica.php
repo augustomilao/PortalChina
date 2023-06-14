@@ -25,6 +25,10 @@ function novaFabrica($conn, $nome, $empresa){
     $resultado = $conn -> query($sql);
 }
 
+function apagaFabrica($conn, $id){
+    $sql = "DELETE FROM fabricas WHERE id = '$id'";
+    $resultado = $conn -> query($sql);
+}
 
 
 

@@ -24,4 +24,9 @@ function todosUsuarios($conn){
     return $resultado;
 }
 
+function apagaUsuario($conn, $id){
+    $sql = "DELETE FROM usuarios WHERE id = '$id'";
+    $resultado = $conn -> query($sql);
+}
+
 ?>
