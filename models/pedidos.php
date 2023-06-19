@@ -88,4 +88,21 @@ function alteraRevisao($conn, $id, $rev){
     return $resultado;
 }
 
+function alteraDeadline($conn, $id, $deadline){
+    $sql = "UPDATE pedidos SET deadlineAmostra = '$deadline' WHERE id = '$id' ";
+    $resultado = $conn -> query($sql);
+    return $resultado;
+}
+
+function buscaReferencia($conn, $id){
+    $sql = "SELECT referencia FROM pedidos WHERE id = '$id'";
+    $resultado = $conn -> query($sql) -> fetch_assoc();
+    return $resultado;
+}
+
+function finalizaPedido($conn, $id, $status){
+    $sql = "UPDATE pedidos SET finalizado = '$status' WHERE id = '$id' ";
+    $resultado = $conn -> query($sql);
+}
+
 ?>

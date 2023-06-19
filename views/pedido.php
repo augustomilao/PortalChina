@@ -137,11 +137,23 @@ include 'components/header.php';
             animation-iteration-count: infinite;
         }
 
+        .menuEscondido {
+            background-color: white;
+            border: 1px solid black;
+            padding-bottom: 1.5em;
+            position: fixed;
+            top: 12em;
+            left: 12em;
+            right: 12em;
+            z-index: 5;
+        }
+
         .displaymenu {
             justify-content: center;
             display: grid;
             grid-template-columns: auto auto;
             gap: 10px;
+            
         }
 
         .cardmenu {
@@ -153,11 +165,11 @@ include 'components/header.php';
             height: 50px;
         }
 
-        .none{
+        .none {
             display: none;
         }
 
-        .cardmenu:hover{
+        .cardmenu:hover {
             cursor: pointer;
         }
 
@@ -182,10 +194,19 @@ include 'components/header.php';
 <body>
 
     <!-- //TODO: MENU OVERFLOW -->
-    <div class="botaomenu">
-        <img class="imgBotao" src="../assets/Menu.png" alt="" height="60" onclick="Painel()">
-    </div>
+    <?php
+    if ($_SESSION['privilegio'] != "fabrica") {
+    ?>
+        <div class="botaomenu">
+            <img class="imgBotao" src="../assets/Menu.png" alt="" height="60" onclick="Painel()">
+        </div>
+    <?php
+    }
+    ?>
 
+    <div id="resp">
+
+    </div>
     <div class="menuEscondido none" id="menuEscondido">
         <br>
         <div style="width: 600px; margin:auto;border: 1px solid black;border-radius: 12px;">
@@ -206,36 +227,48 @@ include 'components/header.php';
             <hr>
             <div style="text-align: center;" id="div1" class="none">
                 <!--  -->
-                
+                <form action="../controllers/removeAlert.php" method="POST">
                     <input type="hidden" name="pedido" value="<?= $pedido ?>">
                     <button class="btn btn-danger">Remove Alert</button>
-                
-                <br><br>
+                    <br><br>
+                </form>
             </div>
             <div style="text-align: center;" id="div2" class="none">
                 <!--  -->
-                <button class="btn btn-success">Accept</button>
-                <button class="btn btn-danger">Deny</button>
-                <br><br>
+                <form action="../controllers/finalizarPedido.php" method="post">
+                    <input type="hidden" name="status" value="1">
+                    <input type="hidden" name="pedido" value="<?= $pedido ?>">
+                    <button class="btn btn-success">Accept</button>
+                </form>
+                <br>
+                <form action="../controllers/finalizarPedido.php" method="post">
+                    <input type="hidden" name="status" value="2">
+                    <input type="hidden" name="pedido" value="<?= $pedido ?>">
+                    <button class="btn btn-danger">Deny</button>
+                </form>
+                <br>
             </div>
             <div style="text-align: center;" id="div3" class="none">
                 <!--  -->
                 <form action="../controllers/revisao.php" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="pedido" value="<?= $pedido ?>">
-                <input type="file" name="revisao">
-                <br><br>
-                <input type="date" name="nova_deadline">
-                <br><br>
-                <button class="btn btn-primary">Create Revision</button>
-                <br><br>
+                    <input type="hidden" name="pedido" value="<?= $pedido ?>">
+                    <input type="file" name="revisao">
+                    <br><br>
+                    <input type="date" name="nova_deadline">
+                    <br><br>
+                    <button class="btn btn-primary">Create Revision</button>
+                    <br><br>
                 </form>
             </div>
             <div style="text-align: center;" id="div4" class="none">
                 <!--  -->
-                <input type="date" name="nova_deadline">
-                <br><br>
-                <button class="btn btn-primary">Delay the deadline</button>
-                <br><br>
+                <form action="../controllers/atrasarDeadline.php" method="POST">
+                    <input type="hidden" name="pedido" value="<?= $pedido ?>">
+                    <input type="date" name="nova_deadline">
+                    <br><br>
+                    <button class="btn btn-primary">Delay the deadline</button>
+                    <br><br>
+                </form>
             </div>
 
         </div>
@@ -315,7 +348,7 @@ include 'components/header.php';
                 <hr>
                 <div style="display: grid;grid-template-columns: 25% 25% 25% 25%; gap:10px">
                     <div>
-                        <label class="negrito" for="dataEnvio">Weight (g/kg/lbs)</label>
+                        <label class="negrito" for="dataEnvio">Weight (g)</label>
                         <p style="color: brown;font-weight: bold;"><?= $a["weight"] ?></p>
                     </div>
                     <div>
@@ -422,7 +455,7 @@ include 'components/header.php';
                     echo '<img src="../assets/placeholder100.png" width=150 height=150>';
                 } else {
                     foreach ($fotos3 as $f) {
-                        echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=350 height=150 ></a>';
+                        echo '<a href="' . $f . '" target="_blank"><img src="' . $f . '" width=150 height=150 ></a>';
                     }
                 }
                 ?>
@@ -572,6 +605,18 @@ include 'components/header.php';
             } else {
                 document.getElementById('menuEscondido').style.display = "block";
             }
+        }
+
+
+        function Alerta(a) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("resp").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "../controllers/removeAlert.php?q=" + a, true);
+            xmlhttp.send();
         }
     </script>
 </body>
