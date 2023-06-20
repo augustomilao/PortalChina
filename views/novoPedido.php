@@ -158,7 +158,7 @@ $zoop  = PegaMarcasEmpresa($conn,"ZOOP");
                         </optgroup>
                     </select>
                     <label class="negrito" for="linkDownload">Download Link</label>
-                    <input required class="form-control" type="text" name="linkDownload">
+                    <input class="form-control" type="text" name="linkDownload">
                     <div style="display: grid;grid-template-columns: auto auto; gap:10px">
                         <div>
                             <label class="negrito" for="dataEnvio">Upload Date</label>
