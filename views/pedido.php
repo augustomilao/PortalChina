@@ -212,16 +212,16 @@ include 'components/header.php';
         <div style="width: 600px; margin:auto;border: 1px solid black;border-radius: 12px;">
             <div class="displaymenu" style="padding:2em 0 0 0;">
                 <div class="cardmenu" onclick="Divisorias('div1')">
-                    <p style="padding: 0;margin:0;margin-top:2px">Retirar Visualização</p>
+                    <p style="padding: 0;margin:0;margin-top:2px">Lido</p>
                 </div>
                 <div class="cardmenu" onclick="Divisorias('div2')">
-                    <p style="padding: 0;margin:0;margin-top:2px">Aceitar / Negar</p>
+                    <p style="padding: 0;margin:0;margin-top:2px">Aprovação</p>
                 </div>
                 <div class="cardmenu" onclick="Divisorias('div3')">
-                    <p style="padding: 0;margin:0;margin-top:2px">Pedir revisão</p>
+                    <p style="padding: 0;margin:0;margin-top:2px">Revisar Amostra</p>
                 </div>
                 <div class="cardmenu" onclick="Divisorias('div4')">
-                    <p style="padding: 0;margin:0;margin-top:2px">Adiar</p>
+                    <p style="padding: 0;margin:0;margin-top:2px">Prazo Amostra</p>
                 </div>
             </div>
             <hr>
