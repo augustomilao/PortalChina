@@ -9,7 +9,7 @@ $hoje = date('Y-m-d');
 // var_dump($_POST);
 // weight lenght depth width
 
-inserirMedidas($conn, $_POST['weight'], $_POST['lenght'], $_POST['depth'], $_POST['width'], $_POST['id']);
+inserirMedidas($conn, $_POST['weight'], $_POST['width'], $_POST['lenght'], $_POST['depth'], $_POST['id']);
 
 HouveMudanca($conn, $_POST['id']);
 

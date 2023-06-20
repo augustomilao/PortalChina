@@ -177,10 +177,10 @@ $atrasados = [];
                     $tempo = intval($tempo) + 1;
 
                     // TODO: Criar uma ideia de cores
-                    if ($tempo <= 12 && $tempo > 8) {
+                    if ($tempo <= 5 && $tempo > 1) {
                         $cor = "yellow";
                         array_push($atrasados, $p);
-                    } elseif ($tempo <= 8) {
+                    } elseif ($tempo <= 1) {
                         $cor = "red";
                         array_push($atrasados, $p);
                     } else {
