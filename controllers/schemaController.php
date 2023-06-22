@@ -7,7 +7,6 @@ include_once '../models/comentarios.php';
 
 
 $nomes = ($_FILES["imagem"]["tmp_name"]);
-var_dump($nomes);
 echo "<br><br>";
 
 
