@@ -223,6 +223,9 @@ include 'components/header.php';
                 <div class="cardmenu" onclick="Divisorias('div4')">
                     <p style="padding: 0;margin:0;margin-top:2px">Prazo Amostra</p>
                 </div>
+                <div class="cardmenu" onclick="Divisorias('div5')">
+                    <p style="padding: 0;margin:0;margin-top:2px">Inserir Schemas</p>
+                </div>
             </div>
             <hr>
             <div style="text-align: center;" id="div1" class="none">
@@ -267,6 +270,17 @@ include 'components/header.php';
                     <input type="date" name="nova_deadline">
                     <br><br>
                     <button class="btn btn-primary">Delay the deadline</button>
+                    <br><br>
+                </form>
+            </div>
+            <div style="text-align: center;" id="div5" class="none">
+                <!--  -->
+                <form action="../controllers/schemaController.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="referencia" value="<?= $a["referencia"] ?>">
+                    <input type="hidden" name="id" value="<?= $pedido ?>">
+                    <input type="file" multiple name="imagem[]">
+                    <br><br>
+                    <button class="btn btn-primary">Add Schemas</button>
                     <br><br>
                 </form>
             </div>
@@ -386,6 +400,27 @@ include 'components/header.php';
                     <button onClick="ShowMeasures()" class="btn btn-success">Add Measurements</button>
                 </div>
             </div>
+        </div>
+
+        <hr style="border-top: 3px solid #F8B32D;">
+
+        <div class="fotos">
+            <h4 style="margin: 0 2em;">Schemas</h4>
+            <br>
+            <!-- // TODO: Ver como funciona as fotos -->
+            <div class="fotosgrid abas" style="display:grid">
+                <?php
+                $schemas = glob("../imagens/400/" . $a["referencia"] . "*.png");
+                if (empty($schemas)) {
+                    echo '<img src="../assets/placeholder100.png" width=150 height=150>';
+                } else {
+                    foreach ($schemas as $s) {
+                        echo '<a href="' . $s . '" target="_blank"><img src="' . $s . '" width=150 height=150 ></a>';
+                    }
+                }
+                ?>
+            </div>
+            <br>
         </div>
 
         <hr style="border-top: 3px solid #F8B32D;">
