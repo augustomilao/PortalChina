@@ -366,7 +366,7 @@ include 'components/header.php';
                         <p style="color: brown;font-weight: bold;"><?= $a["weight"] ?></p>
                     </div>
                     <div>
-                        <label class="negrito" for="dataDownload">Length (cm)</label>
+                        <label class="negrito" for="dataDownload">Height (cm)</label>
                         <p style="color: brown;font-weight: bold;"><?= $a["length"] ?></p>
                     </div>
                     <div>
@@ -384,7 +384,7 @@ include 'components/header.php';
                         <label for="weight">Weight</label>
                         <input type="text" name="weight">
 
-                        <label for="lenght">Lenght</label>
+                        <label for="lenght">Height</label>
                         <input type="text" name="lenght">
 
                         <label for="depth">Depth</label>
