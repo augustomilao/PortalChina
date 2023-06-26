@@ -28,13 +28,13 @@ function inicioPedido($conn, $fabrica, $referencia, $marca, $linkDownload, $data
 }
 
 function buscaTodosPedidos($conn){
-    $sql = "SELECT *,pedidos.id FROM pedidos INNER JOIN fabricas ON pedidos.id_fabrica = fabricas.id WHERE pedidos.finalizado = 0";
+    $sql = "SELECT *,pedidos.id FROM pedidos INNER JOIN fabricas ON pedidos.id_fabrica = fabricas.id";
     $resultado = $conn -> query($sql) -> fetch_all(MYSQLI_ASSOC);
     return $resultado;
 }
 
 function buscaTodosPedidosFinalizados($conn){
-    $sql = "SELECT *,pedidos.id FROM pedidos INNER JOIN fabricas ON pedidos.id_fabrica = fabricas.id WHERE pedidos.finalizado = 1";
+    $sql = "SELECT *,pedidos.id FROM pedidos INNER JOIN fabricas ON pedidos.id_fabrica = fabricas.id";
     $resultado = $conn -> query($sql) -> fetch_all(MYSQLI_ASSOC);
     return $resultado;
 }
