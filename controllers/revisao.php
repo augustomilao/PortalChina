@@ -42,8 +42,8 @@ $referencia = buscaReferencia($conn, $_POST['pedido']);
 $referencia = $referencia['referencia'];
 
 $nome = ($_FILES["revisao"]["tmp_name"]);
-$diretorio_upload = '../imagens/200/' .$rev;
-$imagem_alvo = $diretorio_upload . $referencia ."-aa".".png";
+$diretorio_upload = '../imagens/400/';
+$imagem_alvo = $diretorio_upload . $referencia .".png";
 
 move_uploaded_file($nome, $imagem_alvo);
 

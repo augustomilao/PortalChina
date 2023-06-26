@@ -568,7 +568,7 @@ include 'components/header.php';
             x = document.getElementById('paginas').innerHTML;
             x = parseInt(x);
 
-            if ((x + y) > 5 || (x + y) < 0) {
+            if ((x + y) > 6 || (x + y) < 1) {
                 console.log("Error");
             } else {
                 x = x + y;

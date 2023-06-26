@@ -48,9 +48,9 @@ $fabrica = mostraFabricas($conn);
                     <label for="empresa">Company</label>
                     <select name="empresa" id="" class="form-control" required>
                         <option value=""> Choose One</option>
-                        <option value="ABR">ABR</option>
-                        <option value="UP">UP</option>
-                        <option value="LUMINUS">LUMINUS</option>
+                        <option value="ABR">Cliostyle</option>
+                        <option value="UP">Semax</option>
+                        <option value="LUMINUS">Zoop Toys</option>
                     </select>
                 </div>
             </div>

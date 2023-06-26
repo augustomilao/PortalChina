@@ -108,19 +108,19 @@ $zoop  = PegaMarcasEmpresa($conn,"ZOOP");
                     <label class="negrito" for="fabrica">Fabricator</label>
                     <select class="form-control" name="fabrica" id="fabrica" required onchange="Mudanca()">
                         <option value="" selected>Choose one</option>
-                        <optgroup label="ABR E UP">
+                        <optgroup label="Cliostyle">
                             <?php
                             foreach ($abr as $a) {
                                 echo '<option value="' . $a["id"] . '">' . $a["nome"] . '</option>';
                             }
                             ?>
-                        <optgroup label="UP">
+                        <optgroup label="Semax">
                             <?php
                             foreach ($up as $u) {
                                 echo '<option value="' . $u["id"] . '">' . $u["nome"] . '</option>';
                             }
                             ?>
-                        <optgroup label="LUMINUS">
+                        <optgroup label="Zoop Toys">
                             <?php
                             foreach ($luminus as $l) {
                                 echo '<option value="' . $l["id"] . '">' . $l["nome"] . '</option>';
@@ -135,21 +135,21 @@ $zoop  = PegaMarcasEmpresa($conn,"ZOOP");
                     <!-- //TODO: SELECT -->
                     <select required class="form-control" type="text" name="marca" required>
                         <option value="" selected>Choose One</option>
-                        <optgroup label="CLIO">
+                        <optgroup label="Cliostyle">
                         <?php
                             foreach($clio as $c){
                                 echo '<option value="'.$c["nome"].'" >'.$c["nome"].'</option>';
                             }
                         ?>
                         </optgroup>
-                        <optgroup label="SEMAX">
+                        <optgroup label="Semax">
                         <?php
                             foreach($semax as $s){
                                 echo '<option value="'.$s["nome"].'" >'.$s["nome"].'</option>';
                             }
                         ?>
                         </optgroup>
-                        <optgroup label="ZOOP">
+                        <optgroup label="Zoop Toys">
                         <?php
                             foreach($zoop as $z){
                                 echo '<option value="'.$z["nome"].'" >'.$z["nome"].'</option>';
