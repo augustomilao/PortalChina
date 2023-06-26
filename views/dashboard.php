@@ -118,7 +118,7 @@ $atrasados = [];
                 <div style="text-align:center">
                     <label for="Filtro">Filters</label>
                     <select name="Filtro" id="filtro" class="form-control">
-                        <option value="1" selected>Todos</option>
+                        <option value="1" selected>Em Aberto</option>
                         <option value="2">Com Mudanças</option>
                         <option value="3">Atrasados</option>
                         <option value="4">Aprovados</option>
