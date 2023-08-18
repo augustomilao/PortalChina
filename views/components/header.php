@@ -60,7 +60,7 @@
     <header>
         <div class="header">
             <div class="centro" style="font-weight: bold">
-                <p class="text">SISIMC</p>
+                <a href="/PortalChina/views/dashboard.php"><p class="text">SISIMC</p></a>
             </div>
 
             <?php

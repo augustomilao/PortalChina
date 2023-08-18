@@ -3,6 +3,7 @@ include 'sessaoController.php';
 include '../models/usuario.php';
 
 
+
 $usuario = $_POST['usuario'];
 $senha = sha1($_POST['senha']);
 

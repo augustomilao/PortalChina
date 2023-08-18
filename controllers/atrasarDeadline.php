@@ -9,6 +9,7 @@ $hoje = date('Y-m-d');
 alteraDeadline($conn,$_POST['pedido'],$_POST['nova_deadline']);
 
 $coment = "New deadline";
+HouveMudanca($conn, $_POST['pedido']);
 novoComentario($conn, $_POST['pedido'], $coment, $hoje, $_SESSION['id']);
 
 

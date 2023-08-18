@@ -55,13 +55,9 @@ foreach ($pedidos as $p) {
 
 //* APROVADOS
 foreach ($pedidos as $p) {
-    print_r($pedidos);
-    echo "<br><br>";
     if ($p['finalizado'] == '1') {
         
         array_push($aprovados, $p);
-    }else{
-        echo '<br>';
     }
     
 }
