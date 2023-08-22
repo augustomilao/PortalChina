@@ -105,4 +105,9 @@ function finalizaPedido($conn, $id, $status){
     $resultado = $conn -> query($sql);
 }
 
+function apagaPedido($conn, $id){
+    $sql = "DELETE FROM pedidos WHERE id = '$id'";
+    $resultado = $conn -> query($sql);
+}
+
 ?>

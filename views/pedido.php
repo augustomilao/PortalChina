@@ -226,6 +226,9 @@ include 'components/header.php';
                 <div class="cardmenu" onclick="Divisorias('div5')">
                     <p style="padding: 0;margin:0;margin-top:2px">Inserir Schemas</p>
                 </div>
+                <div class="cardmenu" onclick="Divisorias('div6')">
+                    <p style="padding: 0;margin:0;margin-top:2px">Apagar Pedido</p>
+                </div>
             </div>
             <hr>
             <div style="text-align: center;" id="div1" class="none">
@@ -281,6 +284,16 @@ include 'components/header.php';
                     <input type="file" multiple name="imagem[]">
                     <br><br>
                     <button class="btn btn-primary">Add Schemas</button>
+                    <br><br>
+                </form>
+            </div>
+            <div style="text-align: center;" id="div6" class="none">
+                <!--  -->
+                <form action="../controllers/apagarController.php" method="POST" enctype="multipart/form-data">
+                    
+                    <input type="hidden" name="id" value="<?= $pedido ?>">
+                    <h3>Essa ação é irreversivel! Cuidado!</h3><br>
+                    <button class="btn btn-danger">Apagar Pedido!</button>
                     <br><br>
                 </form>
             </div>
@@ -581,6 +594,7 @@ include 'components/header.php';
                 document.getElementById('3').style.display = "none";
                 document.getElementById('4').style.display = "none";
                 document.getElementById('5').style.display = "none";
+                document.getElementById('6').style.display = "none";
 
                 document.getElementById(x).style.display = "grid";
             }
@@ -625,6 +639,8 @@ include 'components/header.php';
             document.getElementById('div2').style.display = "none";
             document.getElementById('div3').style.display = "none";
             document.getElementById('div4').style.display = "none";
+            document.getElementById('div5').style.display = "none";
+            document.getElementById('div6').style.display = "none";
 
 
             document.getElementById(a).style.display = "block";

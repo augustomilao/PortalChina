@@ -47,7 +47,7 @@
             text-decoration-line: none
         }
 
-        .text2{
+        .text2 {
             color: white;
             margin-top: 0.1em;
         }
@@ -60,7 +60,9 @@
     <header>
         <div class="header">
             <div class="centro" style="font-weight: bold">
-                <a href="/PortalChina/views/dashboard.php"><p class="text">SISIMC</p></a>
+                <a href="/PortalChina/views/dashboard.php">
+                    <p class="text">SISIMC</p>
+                </a>
             </div>
 
             <?php
@@ -96,49 +98,55 @@
         </div>
     </header>
     <div id="drop" style="display: none;">
-            <div style="display: grid;grid-template-columns: auto auto auto;background-color:#3E2080;color:white;height:2em;padding:0.2em 0; border-top:1px solid black">
-                <div style="text-align: center;">
-                   <a class="link" href="novaMarca.php"><p class="text2">New Brand</p></a>
-                </div>
-                <div style="text-align: center;">
-                    <a class="link" href="novaFabrica.php"><p class="text2">New Factory</p></a>
-                </div>
-                <div style="text-align: center;">
-                    <a class="link" href="novoUsuario.php"><p class="text2">New User</p></a>
-                </div>
+        <div style="display: grid;grid-template-columns: auto auto auto;background-color:#3E2080;color:white;height:2em;padding:0.2em 0; border-top:1px solid black">
+            <div style="text-align: center;">
+                <a class="link" href="novaMarca.php">
+                    <p class="text2">New Brand</p>
+                </a>
             </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+            <div style="text-align: center;">
+                <a class="link" href="novaFabrica.php">
+                    <p class="text2">New Factory</p>
+                </a>
+            </div>
+            <div style="text-align: center;">
+                <a class="link" href="novoUsuario.php">
+                    <p class="text2">New User</p>
+                </a>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
 
 
     <script>
-        function ToogleDIV(){
+        function ToogleDIV() {
             var a = document.getElementById('drop').style.display;
-            if(a == "none"){
+            if (a == "none") {
                 document.getElementById('drop').style.display = "block";
-            }else{
+            } else {
                 document.getElementById('drop').style.display = "none";
             }
         }
