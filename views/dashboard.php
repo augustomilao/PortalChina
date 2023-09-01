@@ -2,20 +2,24 @@
 include_once '../controllers/sessaoController.php';
 
 verificaSessao();
-// var_dump($_SESSION);
 
 include '../models/pedidos.php';
 
 // 80 = Sinal para ver todas
-if ($_SESSION['fabrica'] != 80) {
-    $pedidos = buscaTodosPorFabrica($conn, $_SESSION['fabrica']);
-} else {
+if ($_SESSION['fabrica'] == 80) {
     $pedidos = buscaTodosPedidos($conn);
+}elseif($_SESSION['fabrica'] == 81){
+    $pedidos = buscaTodosGrupos($conn, "ABR");
+}elseif($_SESSION['fabrica'] == 82){
+    $pedidos = buscaTodosGrupos($conn, "UP");
+}elseif($_SESSION['fabrica'] == 83){
+    $pedidos = buscaTodosGrupos($conn, "LUMINUS");
+}else {
+    $pedidos = buscaTodosPorFabrica($conn, $_SESSION['fabrica']);
 }
 
 $hoje = time();
 $atrasados = [];
-// var_dump($_SESSION);
 
 
 
@@ -118,12 +122,14 @@ $atrasados = [];
                 <div style="text-align:center">
                     <label for="Filtro">Filters</label>
                     <select name="Filtro" id="filtro" class="form-control">
-                        <option value="1" selected>Outstanding Orders</option>
+                        <option value="1" selected>In Progress</option>
                         <option value="2">With Changes</option>
-                        <option value="3">Late Submission</option>
+                        <option value="3">Delayed Deadline</option>
                         <option value="4">Approved</option>
-                        <!-- <option value="5">Por Marca</option>
-                        <option value="6">Por Fábrica</option> -->
+                        <optgroup label="By Brands">
+                            <option value="5">By Brands</option>
+                        </optgroup>
+                        <!-- <option value="6">By Factory</option> -->
                     </select>
                 </div>
                 <div style="text-align:center">
@@ -134,6 +140,13 @@ $atrasados = [];
                     </select>
                 </div>
             </div><br>
+            <div>
+
+            </div>
+            <div>
+                
+            </div>
+            <!-- //! FILTRO -->
             <button class="btn btn-primary" onclick="loadDoc()">Apply Filter</button>
     </div>
     <br>
@@ -177,10 +190,10 @@ $atrasados = [];
                     $tempo = intval($tempo) + 1;
 
                     // TODO: Criar uma ideia de cores
-                    if ($tempo <= 5 && $tempo > 1) {
+                    if ($tempo <= 2 && $tempo > 0) {
                         $cor = "yellow";
                         array_push($atrasados, $p);
-                    } elseif ($tempo <= 1) {
+                    } elseif ($tempo <= 0) {
                         $cor = "red";
                         array_push($atrasados, $p);
                     } else {
@@ -197,9 +210,10 @@ $atrasados = [];
                     echo '<p class="lab">' . $p["nome"] . '</p>';
                     echo '</div>';
                     echo '<div class="campo">';
-                    echo '<form action="pedido.php" method="POST" style="height:30px">';
+                    echo '<form target="_blank" action="pedido.php" method="POST" style="height:30px">';
                     echo '<input type="hidden" name="id" value="' . $p["id"] . '">';
-                    echo '<button class="btn lab" style="height:30px;padding:0;margin:0">' . $p["referencia"] . '</button>';
+                    // ! TODO, MUDAR PARA ABRIR EM OUTRA ABA
+                    echo '<button class="btn lab" target="_blank" style="height:30px;padding:0;margin:0">' . $p["referencia"] . '</button>';
                     echo '</form>';
                     echo '</div>';
                     echo '<div class="campo">';

@@ -19,10 +19,16 @@ $atrasados = [];
 $aprovados = [];
 $final = [];
 
-if ($_SESSION['fabrica'] != 80) {
-    $pedidos = buscaTodosPorFabrica($conn, $_SESSION['fabrica']);
-} else {
+if ($_SESSION['fabrica'] == 80) {
     $pedidos = buscaTodosPedidos($conn);
+}elseif($_SESSION['fabrica'] == 81){
+    $pedidos = buscaTodosGrupos($conn, "ABR");
+}elseif($_SESSION['fabrica'] == 82){
+    $pedidos = buscaTodosGrupos($conn, "UP");
+}elseif($_SESSION['fabrica'] == 83){
+    $pedidos = buscaTodosGrupos($conn, "LUMINUS");
+}else {
+    $pedidos = buscaTodosPorFabrica($conn, $_SESSION['fabrica']);
 }
 
 //* MUDANÇA

@@ -1,6 +1,8 @@
 <?php
 // TODO: Criar um campo de confirmação de pedido para os usuários
 
+
+
 include '../controllers/sessaoController.php';
 
 verificaSessao();
@@ -49,6 +51,13 @@ if (empty($a["depth"])) {
 if (empty($a["width"])) {
     $a["width"] = "NEED TO ADD";
 }
+
+$b = buscaObservacao($conn, $_POST['id']);
+
+if(empty($b['comentario'])){
+    $b['comentario'] = "Nothing";
+}
+
 
 include 'components/header.php';
 ?>
@@ -142,7 +151,7 @@ include 'components/header.php';
             border: 1px solid black;
             padding-bottom: 1.5em;
             position: fixed;
-            top: 12em;
+            top: 5em;
             left: 12em;
             right: 12em;
             z-index: 5;
@@ -229,6 +238,9 @@ include 'components/header.php';
                 <div class="cardmenu" onclick="Divisorias('div6')">
                     <p style="padding: 0;margin:0;margin-top:2px">Apagar Pedido</p>
                 </div>
+                <div class="cardmenu" onclick="Divisorias('div7')">
+                    <p style="padding: 0;margin:0;margin-top:2px">Nova Observação</p>
+                </div>
             </div>
             <hr>
             <div style="text-align: center;" id="div1" class="none">
@@ -295,6 +307,19 @@ include 'components/header.php';
                     <h3>Essa ação é irreversivel! Cuidado!</h3><br>
                     <button class="btn btn-danger">Apagar Pedido!</button>
                     <br><br>
+                </form>
+            </div>
+            <div style="text-align: center;" id="div7" class="none">
+                <!--  -->
+                <form action="../controllers/observacaoController.php" method="POST" enctype="multipart/form-data">
+                    
+                    <input type="hidden" name="id" value="<?= $pedido ?>">
+                    <h3>Insira a nova observação!</h3><br>
+                    <div class="container">
+                        <input type="text" class="form-control" name="observacao" placeholder="Insira ..."><br>
+                        <button class="btn btn-primary">Enviar</button>
+                    </div>
+                    <br>
                 </form>
             </div>
 
@@ -373,7 +398,13 @@ include 'components/header.php';
                     <button onClick="ShowDelay()" class="btn btn-success">Ask to delay deadline</button>
                 </div>
                 <hr>
-                <div style="display: grid;grid-template-columns: 25% 25% 25% 25%; gap:10px">
+                <div id="observacao">
+                    <h5>Last Observation:</h5>
+                    <textarea readonly class="form-control" name="" id="" cols="100" rows="3"><?= $b['comentario']?>
+                    </textarea>
+                </div>
+                <!-- //! CAMPO MEDIDAS -->
+                <!-- <div style="display: grid;grid-template-columns: 25% 25% 25% 25%; gap:10px">
                     <div>
                         <label class="negrito" for="dataEnvio">Weight (g)</label>
                         <p style="color: brown;font-weight: bold;"><?= $a["weight"] ?></p>
@@ -390,7 +421,7 @@ include 'components/header.php';
                         <label class="negrito" for="deadlineAmostra">Width (cm)</label>
                         <p style="color: brown;font-weight: bold;"><?= $a["width"] ?></p>
                     </div>
-                </div>
+                </div> 
                 <div id="medidas" style="display: none;">
                     <form action="../controllers/medidasController.php" method="post">
                         <input type="hidden" name="id" value="<?= $pedido ?>">
@@ -411,7 +442,7 @@ include 'components/header.php';
                 </div>
                 <div style="text-align: right;">
                     <button onClick="ShowMeasures()" class="btn btn-success">Add Measurements</button>
-                </div>
+                </div>-->
             </div>
         </div>
 
@@ -641,6 +672,7 @@ include 'components/header.php';
             document.getElementById('div4').style.display = "none";
             document.getElementById('div5').style.display = "none";
             document.getElementById('div6').style.display = "none";
+            document.getElementById('div7').style.display = "none";
 
 
             document.getElementById(a).style.display = "block";

@@ -33,6 +33,12 @@ function buscaTodosPedidos($conn){
     return $resultado;
 }
 
+function buscaTodosGrupos($conn, $grupo){
+    $sql = "SELECT *,pedidos.id FROM pedidos INNER JOIN fabricas ON pedidos.id_fabrica = fabricas.id WHERE empresa = '$grupo'";
+    $resultado = $conn -> query($sql) -> fetch_all(MYSQLI_ASSOC);
+    return $resultado;
+}
+
 function buscaTodosPedidosFinalizados($conn){
     $sql = "SELECT *,pedidos.id FROM pedidos INNER JOIN fabricas ON pedidos.id_fabrica = fabricas.id";
     $resultado = $conn -> query($sql) -> fetch_all(MYSQLI_ASSOC);
@@ -108,6 +114,19 @@ function finalizaPedido($conn, $id, $status){
 function apagaPedido($conn, $id){
     $sql = "DELETE FROM pedidos WHERE id = '$id'";
     $resultado = $conn -> query($sql);
+}
+
+function buscaObservacao($conn, $id){
+    $sql = "SELECT * FROM observacao WHERE idpedido = '$id' ORDER BY idobservacao DESC LIMIT 1";
+    $resultado = $conn -> query($sql) -> fetch_assoc();
+    return $resultado;
+}
+
+function InsereObservacao($conn, $id, $texto){
+    $tempo = time();
+    $sql = "INSERT INTO observacao (comentario, datacomentario, idpedido) VALUES ('$texto', '$tempo', '$id')";
+    $resultado = $conn -> query($sql);
+    return $resultado; 
 }
 
 ?>

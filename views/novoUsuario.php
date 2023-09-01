@@ -57,10 +57,11 @@ $usuarios = todosUsuarios($conn);
                     <select class="form-control" name="privilegio" id="privilegio" required onChange="Muda()">
                         <option value="" selected>Choose One</option>
                         <option value="gerente">Manager</option>
+                        <option value="funcionario">Employee</option>
                         <option value="fabrica">Factory</option>
                     </select>
                 </div>
-                <div id="fabrica">
+                <div id="fabrica" style="display: none;">
                     <label for="fabrica">Factory</label>
                     <select class="form-control" name="fabrica">
                         <option value="" selected>Choose One</option>
@@ -70,6 +71,16 @@ $usuarios = todosUsuarios($conn);
                             echo '<option value="' . $f["id"] . '">' . $f["nome"] . '</option>';
                         }
 
+                        ?>
+                    </select>
+                </div>
+                <div id="grupos" style="display: none;">
+                    <label for="grupos">Group</label>
+                    <select class="form-control" name="grupos">
+                        <option value="" selected>Choose One</option>
+                        <option value="81">ABR</option>
+                        <option value="82">UP</option>
+                        <option value="83">LUMINUS</option>
                         ?>
                     </select>
                 </div>
@@ -109,10 +120,16 @@ $usuarios = todosUsuarios($conn);
         function Muda() {
             var x = document.getElementById("privilegio").value;
             var y = document.getElementById("fabrica");
+            var z = document.getElementById("grupos");
             if (x === "gerente") {
                 y.style.display = "none";
-            } else {
+                z.style.display = "none";
+            } else if(x === "funcionario") {
+                y.style.display = "none";
+                z.style.display = "block";
+            }else{
                 y.style.display = "block";
+                z.style.display = "none";
             }
         }
 
