@@ -31,8 +31,13 @@ if ($_SESSION['fabrica'] == 80) {
     $pedidos = buscaTodosPorFabrica($conn, $_SESSION['fabrica']);
 }
 
+$todos = $pedidos;
+
 //* MUDANÇA
 foreach ($pedidos as $p) {
+    if ($p['finalizado'] == '1') {
+        continue;
+    }
     if ($p['mudanca'] == 1) {
         array_push($mudanca, $p);
     }
@@ -41,6 +46,9 @@ foreach ($pedidos as $p) {
 
 //* ATRASADOS
 foreach ($pedidos as $p) {
+        if ($p['finalizado'] == '1') {
+            continue;
+        }
     $deadline = $p['deadlineAmostra'];
     $deadline = strtotime($deadline);
     $tempo = (($deadline - $hoje) / 86400);
@@ -94,6 +102,9 @@ switch($filtro){
         break;
     case 6:
         $final = $fabrica;
+        break;
+    case 7:
+        $final = $todos;
         break;
 }
 
@@ -239,13 +250,13 @@ switch($ordem){
                 echo '<div class="linhas">';
                 echo '<div class="grid5">';
                 echo '<div class="campo">';
-                echo '<a href="../imagens/' . $p["id_fabrica"] . '/' . $p["referencia"] . '.png"><img src="../imagens/' . $p["id_fabrica"] . '/' . $p["referencia"] . '.png" height=20 width=15></a>';
+                echo '<a target="_blank" href="../imagens/' . $p["id_fabrica"] . '/' . $p["referencia"] . '.png"><img src="../imagens/' . $p["id_fabrica"] . '/' . $p["referencia"] . '.png" height=20 width=15></a>';
                 echo '</div>';
                 echo '<div class="campo">';
                 echo '<p class="lab">' . $p["nome"] . '</p>';
                 echo '</div>';
                 echo '<div class="campo">';
-                echo '<form action="pedido.php" method="POST" style="height:30px">';
+                echo '<form target="_blank" action="pedido.php" method="POST" style="height:30px">';
                 echo '<input type="hidden" name="id" value="' . $p["id"] . '">';
                 echo '<button class="btn lab" style="height:30px;padding:0;margin:0">' . $p["referencia"] . '</button>';
                 echo '</form>';

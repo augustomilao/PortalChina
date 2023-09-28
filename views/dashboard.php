@@ -18,6 +18,16 @@ if ($_SESSION['fabrica'] == 80) {
     $pedidos = buscaTodosPorFabrica($conn, $_SESSION['fabrica']);
 }
 
+$final = [];
+
+foreach($pedidos as $p){
+    if ($p['mudanca'] == '1') {
+        array_push($final, $p);
+    }else{ 
+        continue;
+    }
+}
+
 $hoje = time();
 $atrasados = [];
 
@@ -122,8 +132,8 @@ $atrasados = [];
                 <div style="text-align:center">
                     <label for="Filtro">Filters</label>
                     <select name="Filtro" id="filtro" class="form-control">
-                        <option value="1" selected>In Progress</option>
-                        <option value="2">With Changes</option>
+                        <option value="1" >In Progress</option>
+                        <option value="2" selected>With Changes</option>
                         <option value="3">Delayed Deadline</option>
                         <option value="4">Approved</option>
                         <optgroup label="By Brands">
@@ -179,10 +189,10 @@ $atrasados = [];
             </div>
             <hr style="border-top:1px solid black; padding:0 ; margin:0">
             <?php
-            if (empty($pedidos)) {
+            if (empty($final)) {
                 echo "<h3 style='margin:1em'>Oops. No submissions yet!</h3>";
             } else {
-                foreach ($pedidos as $p) {
+                foreach ($final as $p) {
 
                     $deadline = $p['deadlineAmostra'];
                     $deadline = strtotime($deadline);
@@ -204,7 +214,7 @@ $atrasados = [];
                     echo '<div class="linhas">';
                     echo '<div class="grid5">';
                     echo '<div class="campo">';
-                    echo '<a href="../imagens/' . $p["id_fabrica"] . '/' . $p["referencia"] . '.png"><img src="../imagens/' . $p["id_fabrica"] . '/' . $p["referencia"] . '.png" height=20 width=15></a>';
+                    echo '<a target="_blank" href="../imagens/' . $p["id_fabrica"] . '/' . $p["referencia"] . '.png"><img src="../imagens/' . $p["id_fabrica"] . '/' . $p["referencia"] . '.png" height=20 width=15></a>';
                     echo '</div>';
                     echo '<div class="campo">';
                     echo '<p class="lab">' . $p["nome"] . '</p>';
